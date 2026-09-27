@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -89,7 +89,7 @@ export function ProductDetailView({ product, reviews = [] }: ProductDetailViewPr
               />
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center text-[var(--color-text-subtle)] gap-3">
-                <span className="text-6xl">ðŸ¬</span>
+                <span className="text-6xl">Ã°Å¸ÂÂ¬</span>
                 <span className="text-sm uppercase tracking-wider font-semibold">
                   Handcrafted Mithai
                 </span>
@@ -164,15 +164,15 @@ export function ProductDetailView({ product, reviews = [] }: ProductDetailViewPr
           {/* Price Display */}
           <div className="bg-[var(--color-surface-raised)]/60 p-4 rounded-2xl border border-[var(--color-border)] flex items-baseline gap-3">
             <span className="font-serif text-3xl font-bold text-[var(--color-primary)]">
-              â‚¹{selectedVariant ? selectedVariant.price : "Select variant"}
+              ₹{selectedVariant ? selectedVariant.price : "Select variant"}
             </span>
             {selectedVariant?.mrp && selectedVariant.mrp > selectedVariant.price && (
               <>
                 <span className="text-sm line-through text-[var(--color-text-subtle)]">
-                  â‚¹{selectedVariant.mrp}
+                  ₹{selectedVariant.mrp}
                 </span>
                 <span className="text-xs bg-[var(--color-success)]/10 text-[var(--color-success)] px-2 py-0.5 rounded-md font-bold">
-                  Save â‚¹{(selectedVariant.mrp - selectedVariant.price).toFixed(0)}
+                  Save ₹{(selectedVariant.mrp - selectedVariant.price).toFixed(0)}
                 </span>
               </>
             )}
@@ -203,7 +203,7 @@ export function ProductDetailView({ product, reviews = [] }: ProductDetailViewPr
                           : "bg-white text-[var(--color-text-primary)] border-[var(--color-border)] hover:border-[var(--color-primary)]/50"
                       }`}
                     >
-                      {v.label} Â· â‚¹{v.price}
+                      {v.label} · ₹{v.price}
                     </button>
                   );
                 })}
@@ -255,7 +255,7 @@ export function ProductDetailView({ product, reviews = [] }: ProductDetailViewPr
                 ) : (
                   <>
                     <ShoppingBag className="w-5 h-5" />
-                    Add to Cart Â· â‚¹{((selectedVariant?.price || 0) * quantity).toFixed(0)}
+                    Add to Cart · ₹{((selectedVariant?.price || 0) * quantity).toFixed(0)}
                   </>
                 )}
               </button>
@@ -333,7 +333,7 @@ export function ProductDetailView({ product, reviews = [] }: ProductDetailViewPr
           </div>
         ) : (
           <div className="bg-white p-8 rounded-2xl border border-[var(--color-border)] text-center max-w-md mx-auto">
-            <span className="text-3xl block mb-2">â­</span>
+            <span className="text-3xl block mb-2">⭐</span>
             <p className="text-sm font-semibold text-[var(--color-text-primary)]">Be the first to review!</p>
             <p className="text-xs text-[var(--color-text-muted)] mt-1">
               Order and taste this authentic delicacy, then share your experience with Barabanki sweet lovers.
@@ -344,4 +344,5 @@ export function ProductDetailView({ product, reviews = [] }: ProductDetailViewPr
     </div>
   );
 }
+
 

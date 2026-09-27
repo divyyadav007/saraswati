@@ -1207,9 +1207,9 @@ export interface UserProfileModel {
 
 export const userProfileApi = {
   get: (token: string) =>
-    request<{ data: UserProfileModel }>("/auth/me", { method: "GET", token }),
+    request<UserProfileModel>("/auth/me", { method: "GET", token }),
   update: (data: { full_name?: string; email?: string }, token: string) =>
-    request<{ data: UserProfileModel }>("/auth/me", { method: "PATCH", body: data, token }),
+    request<UserProfileModel>("/auth/me", { method: "PATCH", body: data, token }),
 };
 
 export const notificationPreferencesApi = {

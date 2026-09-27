@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -9,8 +9,11 @@ import {
   UserProfileModel,
 } from "@/lib/api-client";
 
+import { createSupabaseBrowserClient } from "@/lib/supabase-client";
+
 export default function CustomerProfilePage() {
   const router = useRouter();
+  const supabase = createSupabaseBrowserClient();
 
   const [profile, setProfile] = useState<UserProfileModel | null>(null);
   const [fullName, setFullName] = useState("");
@@ -22,21 +25,25 @@ export default function CustomerProfilePage() {
   const [savingPref, setSavingPref] = useState(false);
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
-  const getCustomerToken = () => {
-    if (typeof window === "undefined") return "mock-customer-token";
-    return localStorage.getItem("auth_token") || "mock-customer-token";
-  };
+
 
   useEffect(() => {
     async function loadData() {
       try {
         setLoading(true);
-        const token = getCustomerToken();
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          router.replace("/login");
+          return;
+        }
+        
+        // Use the supabase session token instead of localStorage directly for accuracy
+        const token = session.access_token;
         const [profileRes, prefRes] = await Promise.all([
           userProfileApi.get(token),
           notificationPreferencesApi.get(token),
         ]);
-        const p = profileRes.data;
+        const p = profileRes;
         setProfile(p);
         setFullName(p.full_name || "");
         setEmail(p.email || "");
@@ -59,12 +66,14 @@ export default function CustomerProfilePage() {
     try {
       setSavingProfile(true);
       setFeedback(null);
-      const token = getCustomerToken();
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error("Not authenticated");
+      const token = session.access_token;
       const res = await userProfileApi.update(
         { full_name: fullName.trim(), email: email.trim() || undefined },
         token
       );
-      setProfile(res.data);
+      setProfile(res);
       setFeedback({ type: "success", message: "Personal profile updated successfully." });
     } catch (err: unknown) {
       setFeedback({
@@ -80,7 +89,9 @@ export default function CustomerProfilePage() {
     try {
       setSavingPref(true);
       setFeedback(null);
-      const token = getCustomerToken();
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) throw new Error("Not authenticated");
+      const token = session.access_token;
       await notificationPreferencesApi.update(optIn, token);
       setPromotionalOptIn(optIn);
       setFeedback({

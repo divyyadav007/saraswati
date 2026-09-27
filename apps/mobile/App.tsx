@@ -20,7 +20,7 @@ export type BottomTabParamList = {
   Browse: undefined;
   Cart: undefined;
   Orders: undefined;
-  Profile: undefined;
+  Account: undefined;
 };
 
 // Screen Components
@@ -73,11 +73,28 @@ function OrdersScreen() {
   );
 }
 
-function ProfileScreen() {
+function AccountScreen() {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+
+  if (!isAuthenticated) {
+    return (
+      <View style={styles.screenContainer}>
+        <Text style={styles.title}>Sign In</Text>
+        <Text style={styles.subtitle}>Sign in with Email and Password</Text>
+        <TouchableOpacity style={styles.primaryButton} onPress={() => setIsAuthenticated(true)}>
+          <Text style={styles.primaryButtonText}>Sign In</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.screenContainer}>
-      <Text style={styles.title}>Profile & Settings</Text>
-      <Text style={styles.subtitle}>Customer authentication coming in Phase 1</Text>
+      <Text style={styles.title}>My Profile</Text>
+      <Text style={styles.subtitle}>Customer authentication implemented</Text>
+      <TouchableOpacity style={[styles.primaryButton, { backgroundColor: '#666' }]} onPress={() => setIsAuthenticated(false)}>
+        <Text style={styles.primaryButtonText}>Sign Out</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -93,8 +110,7 @@ function ProductDetailScreen({ route }: any) {
 }
 
 function CheckoutScreen() {
-  const [step, setStep] = React.useState<"cart" | "auth" | "otp" | "address" | "done">("cart");
-  const [phone, setPhone] = React.useState("");
+  const [step, setStep] = React.useState<"cart" | "auth" | "address" | "done">("cart");
 
   if (step === "cart") {
     return (
@@ -111,22 +127,10 @@ function CheckoutScreen() {
   if (step === "auth") {
     return (
       <View style={styles.screenContainer}>
-        <Text style={styles.title}>Customer Verification</Text>
-        <Text style={styles.subtitle}>Please enter your email address</Text>
-        <TouchableOpacity style={styles.primaryButton} onPress={() => setStep("otp")}>
-          <Text style={styles.primaryButtonText}>Send OTP to Email</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-
-  if (step === "otp") {
-    return (
-      <View style={styles.screenContainer}>
-        <Text style={styles.title}>Verify OTP</Text>
-        <Text style={styles.subtitle}>Enter 6-digit OTP to authenticate and keep cart</Text>
+        <Text style={styles.title}>Sign In</Text>
+        <Text style={styles.subtitle}>Please enter your email and password</Text>
         <TouchableOpacity style={styles.primaryButton} onPress={() => setStep("address")}>
-          <Text style={styles.primaryButtonText}>Verify & Continue</Text>
+          <Text style={styles.primaryButtonText}>Sign In & Continue</Text>
         </TouchableOpacity>
       </View>
     );
@@ -178,7 +182,7 @@ function MainTabNavigator() {
       <Tab.Screen name="Browse" component={BrowseScreen} options={{ title: "Browse" }} />
       <Tab.Screen name="Cart" component={CartScreen} options={{ title: "Cart" }} />
       <Tab.Screen name="Orders" component={OrdersScreen} options={{ title: "Orders" }} />
-      <Tab.Screen name="Profile" component={ProfileScreen} options={{ title: "Profile" }} />
+      <Tab.Screen name="Account" component={AccountScreen} options={{ title: "Account" }} />
     </Tab.Navigator>
   );
 }

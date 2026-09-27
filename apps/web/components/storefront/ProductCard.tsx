@@ -12,7 +12,7 @@ export function ProductCard({ product }: ProductCardProps) {
     product.variants.every((v) => v.stock_status === "OUT_OF_STOCK" || !v.is_active);
 
   return (
-    <article className="group bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] overflow-hidden hover:border-[var(--color-primary)]/30 hover:shadow-lg transition-all duration-200 flex flex-col justify-between">
+    <article className="group bg-[var(--color-surface)] rounded-2xl border border-[var(--color-border)] overflow-hidden hover:border-[var(--color-border-strong)] hover:shadow-md shadow-sm transition-all duration-300 flex flex-col justify-between">
       {/* Image Container */}
       <div className="relative aspect-square bg-[var(--color-surface-raised)] overflow-hidden">
         {product.primary_image_url ? (
@@ -84,23 +84,23 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
 
       {/* Footer / Price & CTA */}
-      <div className="p-4 sm:p-5 pt-0 border-t border-[var(--color-surface-raised)] mt-2 flex items-center justify-between">
-        <div>
-          <span className="text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider block font-medium">
+      <div className="p-4 sm:p-5 pt-3 flex flex-col gap-3">
+        <div className="flex items-end justify-between">
+          <span className="text-[10px] text-[var(--color-text-muted)] uppercase tracking-wider block font-medium mb-0.5">
             Starting at
           </span>
-          <span className="font-serif text-lg font-bold text-[var(--color-text-primary)]">
+          <span className="font-serif text-xl font-bold text-[var(--color-primary)]">
             {product.starting_price !== null ? `₹${product.starting_price}` : "Price upon selection"}
           </span>
         </div>
 
         <Link
           href={`/products/${product.slug}`}
-          className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] bg-[var(--color-primary)]/10 hover:bg-[var(--color-primary)]/15 px-3 py-2 rounded-xl transition-all"
+          className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] px-4 py-2.5 rounded-xl transition-all uppercase tracking-wide"
           aria-label={`View options for ${product.name}`}
         >
           View Options
-          <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+          <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Link>
       </div>
     </article>

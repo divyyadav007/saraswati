@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Search, SlidersHorizontal, Sparkles } from "lucide-react";
+import { Search, Sparkles } from "lucide-react";
 import { catalogApi, ProductListItem, Category } from "@/lib/api-client";
 import { ProductCard } from "@/components/storefront/ProductCard";
 
@@ -144,94 +144,118 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      {/* Header & Title */}
-      <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-8">
-        <div>
-          <nav className="flex items-center gap-2 text-xs text-[var(--color-text-muted)] mb-2 font-medium" aria-label="Breadcrumb">
+      
+      {/* ── Heritage Header & Title ─────────────────────────────────────────── */}
+      <div className="bg-[#F2E5CE] rounded-t-[80px] sm:rounded-t-[120px] rounded-b-2xl border-2 border-[#DCA47C]/40 p-8 sm:p-12 md:p-16 text-center mb-8 relative overflow-hidden shadow-sm">
+        <div className="absolute inset-0 bg-[#3A3028]/5 mix-blend-multiply pointer-events-none"></div>
+        <div className="absolute top-0 inset-x-0 h-4 bg-gradient-to-b from-[#3A3028]/10 to-transparent"></div>
+        
+        <div className="relative z-10 max-w-2xl mx-auto">
+          {/* Breadcrumb - subtle */}
+          <nav className="flex items-center justify-center gap-2 text-[10px] sm:text-xs text-[#3A3028]/60 mb-6 font-medium tracking-wide uppercase" aria-label="Breadcrumb">
             <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">Home</Link>
             <span aria-hidden="true">/</span>
-            <span className="text-[var(--color-text-primary)]" aria-current={!currentCategory ? "page" : undefined}>All Sweets</span>
+            <span className="text-[#3A3028]" aria-current={!currentCategory ? "page" : undefined}>All Sweets</span>
             {currentCategory && (
               <>
                 <span aria-hidden="true">/</span>
-                <span className="text-[var(--color-primary)] font-semibold capitalize" aria-current="page">{currentCategory.replace(/-/g, " ")}</span>
+                <span className="text-[var(--color-primary)] font-bold" aria-current="page">{currentCategory.replace(/-/g, " ")}</span>
               </>
             )}
           </nav>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)]">
-            {currentCategory ? `Sweets: ${currentCategory.replace(/-/g, " ")}` : "All Handcrafted Sweets"}
+
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+            <span className="text-2xl sm:text-3xl font-cursive text-[var(--color-primary)] capitalize">
+              Explore Our
+            </span>
+            <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+          </div>
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-[#3A3028] mb-4 leading-tight">
+            {currentCategory ? `Sweets: ${currentCategory.replace(/-/g, " ")}` : "Mithai Collection"}
           </h1>
-          <p className="text-sm text-[var(--color-text-muted)] mt-1">
-            Showing {products.length} of {totalItems} varieties available today
+          <p className="text-sm md:text-base text-[#3A3028]/80 italic font-serif">
+            Freshly prepared daily in Barabanki using time-honored recipes.<br className="hidden sm:block"/>
+            Showing {products.length} of {totalItems} varieties available today.
           </p>
         </div>
+      </div>
 
-        {/* Search Bar */}
-        <form method="GET" action="/products" className="w-full md:w-80 relative shrink-0" role="search">
+      {/* ── Vintage Search Bar ─────────────────────────────────────────────── */}
+      <div className="max-w-md mx-auto mb-12 relative z-20 -mt-16 px-4">
+        <form method="GET" action="/products" className="w-full bg-white rounded-full shadow-lg border border-[#DCA47C]/30 p-1 relative flex items-center" role="search">
           {currentCategory && <input type="hidden" name="category" value={currentCategory} />}
           <label htmlFor="products-search" className="sr-only">Search mithai</label>
+          <div className="pl-5 pr-2 text-[var(--color-primary)]">
+            <Search className="w-4 h-4" aria-hidden="true" />
+          </div>
           <input
             id="products-search"
             type="search"
             name="q"
             defaultValue={currentQuery || ""}
-            placeholder="Search mithai..."
-            className="w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-full py-2.5 pl-10 pr-4 text-sm text-[var(--color-text-primary)] outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/15 transition-all"
+            placeholder="Search by mithai name..."
+            className="w-full bg-transparent border-none py-2.5 pr-5 text-sm text-[var(--color-text-primary)] outline-none font-serif italic placeholder:text-gray-400"
           />
-          <Search className="w-4 h-4 text-[var(--color-text-muted)] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true" />
+          <button type="submit" className="sr-only">Search</button>
         </form>
       </div>
 
-      {/* Filter and Sort Toolbar */}
-      <div className="bg-[var(--color-surface)] p-4 rounded-2xl border border-[var(--color-border)] mb-8 flex flex-wrap items-center justify-between gap-4 shadow-sm">
-        {/* Category Pills */}
-        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold" role="group" aria-label="Filter by category">
-          <Link
-            href={currentQuery ? `/products?q=${encodeURIComponent(currentQuery)}` : "/products"}
-            className={`px-3.5 py-1.5 rounded-full transition-all ${
-              !currentCategory
-                ? "bg-[var(--color-primary)] text-white shadow-sm"
-                : "bg-[var(--color-surface-raised)] text-[var(--color-text-muted)] hover:bg-[var(--color-border)] hover:text-[var(--color-text-primary)]"
-            }`}
-          >
-            All Sweets
-          </Link>
-          {categories.map((c) => (
+      {/* ── Heritage Filter Index ───────────────────────────────────────────── */}
+      <div className="mb-10 px-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-[#DCA47C]/30">
+          
+          {/* Index style categories */}
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-4 gap-y-3 text-sm font-serif" role="group" aria-label="Filter by category">
             <Link
-              key={c.id}
-              href={`/products?category=${c.slug}${currentQuery ? `&q=${encodeURIComponent(currentQuery)}` : ""}`}
-              className={`px-3.5 py-1.5 rounded-full transition-all ${
-                currentCategory === c.slug
-                  ? "bg-[var(--color-primary)] text-white shadow-sm"
-                  : "bg-[var(--color-surface-raised)] text-[var(--color-text-muted)] hover:bg-[var(--color-border)] hover:text-[var(--color-text-primary)]"
+              href={currentQuery ? `/products?q=${encodeURIComponent(currentQuery)}` : "/products"}
+              className={`transition-all ${
+                !currentCategory
+                  ? "text-[var(--color-primary)] font-bold border-b-2 border-[var(--color-primary)] pb-1"
+                  : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
               }`}
             >
-              {c.name}
+              All Sweets
             </Link>
-          ))}
-        </div>
+            
+            {categories.map((c) => (
+              <div key={c.id} className="flex items-center gap-4">
+                <span className="text-[#DCA47C] text-[10px]" aria-hidden="true">❈</span>
+                <Link
+                  href={`/products?category=${c.slug}${currentQuery ? `&q=${encodeURIComponent(currentQuery)}` : ""}`}
+                  className={`transition-all ${
+                    currentCategory === c.slug
+                      ? "text-[var(--color-primary)] font-bold border-b-2 border-[var(--color-primary)] pb-1"
+                      : "text-[var(--color-text-muted)] hover:text-[var(--color-primary)]"
+                  }`}
+                >
+                  {c.name}
+                </Link>
+              </div>
+            ))}
+          </div>
 
-        {/* Sort Dropdown */}
-        <form method="GET" action="/products" className="flex items-center gap-2">
-          {currentCategory && <input type="hidden" name="category" value={currentCategory} />}
-          {currentQuery && <input type="hidden" name="q" value={currentQuery} />}
-          <label htmlFor="sort-select" className="sr-only">Sort products</label>
-          <SlidersHorizontal className="w-4 h-4 text-[var(--color-text-muted)]" aria-hidden="true" />
-          <select
-            id="sort-select"
-            name="sort"
-            defaultValue={currentSort || ""}
-            className="bg-[var(--color-surface-raised)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)] rounded-xl px-3 py-1.5 outline-none focus:border-[var(--color-primary)] cursor-pointer"
-          >
-            <option value="">Featured First</option>
-            <option value="price_asc">Price: Low to High</option>
-            <option value="price_desc">Price: High to Low</option>
-            <option value="newest">Newly Introduced</option>
-          </select>
-        </form>
+          {/* Sort Dropdown - Minimal */}
+          <form method="GET" action="/products" className="flex items-center gap-2 shrink-0">
+            {currentCategory && <input type="hidden" name="category" value={currentCategory} />}
+            {currentQuery && <input type="hidden" name="q" value={currentQuery} />}
+            <label htmlFor="sort-select" className="text-[10px] font-sans uppercase tracking-[0.2em] text-[#DCA47C] font-bold">Sort</label>
+            <select
+              id="sort-select"
+              name="sort"
+              defaultValue={currentSort || ""}
+              className="bg-transparent border-none text-sm font-serif font-bold text-[var(--color-text-primary)] outline-none cursor-pointer text-right focus:ring-0"
+            >
+              <option value="">Featured</option>
+              <option value="price_asc">Lowest Price</option>
+              <option value="price_desc">Highest Price</option>
+              <option value="newest">Newest</option>
+            </select>
+          </form>
+        </div>
       </div>
 
-      {/* Product Grid */}
+      {/* ── Product Grid ────────────────────────────────────────────────────── */}
       {products.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {products.map((product) => (

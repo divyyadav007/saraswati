@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, Sparkles, Gift, ShieldCheck, HeartHandshake } from "lucide-react";
+import { ArrowRight, Sparkles, Gift, ShieldCheck, HeartHandshake, MapPin, Clock } from "lucide-react";
 import { catalogApi, ProductListItem } from "@/lib/api-client";
 import { ProductCard } from "@/components/storefront/ProductCard";
+import { HeroSlider } from "@/components/storefront/HeroSlider";
 
 
 // Fallback products if backend is offline during initial static generation
@@ -88,30 +89,32 @@ const CATEGORIES_DATA = [
   {
     title: "Traditional Sweets",
     slug: "traditional-sweets",
-    emoji: "🪷",
+    imageUrl: "https://images.unsplash.com/photo-1605197584547-c93439b8bc6d?w=400&auto=format&fit=crop&q=80",
     desc: "Desi Ghee Laddoos, Gulab Jamun & Classic Khoya Sweets",
-    color: "from-rose-50 to-pink-50",
   },
   {
     title: "Dry Fruit Mithai",
     slug: "dry-fruit-sweets",
-    emoji: "💎",
+    imageUrl: "https://images.unsplash.com/photo-1599785209707-a456fc1337bb?w=400&auto=format&fit=crop&q=80",
     desc: "Shahi Kaju Katli, Pista Rolls & Fig Barfi",
-    color: "from-amber-50 to-yellow-50",
   },
   {
     title: "Bengali Chhena",
     slug: "bengali-sweets",
-    emoji: "✨",
+    imageUrl: "https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=400&auto=format&fit=crop&q=80",
     desc: "Spongy Rasgulla, Sandesh, Cham Cham & Rasmalai",
-    color: "from-sky-50 to-blue-50",
   },
   {
     title: "Savouries & Namkeen",
     slug: "savouries",
-    emoji: "🌶️",
+    imageUrl: "https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&auto=format&fit=crop&q=80",
     desc: "Crispy Mathri, Dalmoth, Samosa & Khasta Kachori",
-    color: "from-orange-50 to-amber-50",
+  },
+  {
+    title: "Festive Hampers",
+    slug: "gift-hampers",
+    imageUrl: "https://images.unsplash.com/photo-1579893414006-8d5940562688?w=400&auto=format&fit=crop&q=80",
+    desc: "Premium assortments in beautiful celebration boxes",
   },
 ];
 
@@ -131,241 +134,304 @@ export default async function HomePage() {
     <main>
 
       {/* ── Hero Section ──────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#F5EFEB] to-[var(--color-background)] py-16 md:py-24 border-b border-[var(--color-border)]">
-        {/* Decorative background circles */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-primary)]/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-accent-gold)]/8 rounded-full blur-2xl pointer-events-none" aria-hidden="true" />
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Copy */}
-            <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase">
-                <Sparkles className="w-3.5 h-3.5 text-[var(--color-accent-gold)]" aria-hidden="true" />
-                Barabanki&apos;s Iconic Sweetshop Since Inception
-              </div>
-
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--color-text-primary)] leading-[1.15] tracking-tight">
-                Authentic Mithai, Crafted in{" "}
-                <span className="text-[var(--color-primary)] relative">
-                  Pure Desi Ghee
-                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[var(--color-accent-gold)]/60 rounded-full" aria-hidden="true" />
-                </span>
-              </h1>
-
-              <p className="text-base sm:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Indulge in time-honored Indian sweets made daily with pure cow milk, premium saffron, and slow-churned artisanal ghee. From festive celebrations to family tea-time moments.
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
-                <Link
-                  href="/products"
-                  className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white px-7 py-3.5 rounded-2xl text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 active:scale-95"
-                >
-                  Order Sweets Online
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </Link>
-
-                <Link
-                  href="/gift-hampers"
-                  className="inline-flex items-center justify-center gap-2 bg-[var(--color-surface)] hover:bg-[#F5EFEB] text-[var(--color-text-primary)] border border-[var(--color-border)] px-7 py-3.5 rounded-2xl text-base font-semibold transition-all duration-200 hover:border-[var(--color-border-strong)]"
-                >
-                  <Gift className="w-4 h-4 text-[var(--color-accent-gold)]" aria-hidden="true" />
-                  Festive Gift Boxes
-                </Link>
-              </div>
-
-              {/* Trust Badges */}
-              <div className="pt-6 grid grid-cols-3 gap-4 border-t border-[var(--color-border)]/80 max-w-lg mx-auto lg:mx-0 text-left">
-                {[
-                  { stat: "100%", label: "Pure Desi Ghee" },
-                  { stat: "Fresh", label: "Prepared Daily" },
-                  { stat: "Same-Day", label: "Barabanki Delivery" },
-                ].map((item) => (
-                  <div key={item.label}>
-                    <span className="font-serif text-xl sm:text-2xl font-bold text-[var(--color-primary)] block">{item.stat}</span>
-                    <span className="text-xs text-[var(--color-text-muted)] font-medium">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right Hero Image */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md aspect-4/5 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-                <img
-                  src="https://images.unsplash.com/photo-1668236543090-82eba5ee5976?w=800&auto=format&fit=crop&q=85"
-                  alt="Celebration of traditional Indian sweets by Saraswati Sweets"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1F1B16]/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
-                  <span className="text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-bold">Chef&apos;s Signature</span>
-                  <h3 className="font-serif text-2xl font-bold mt-1">Shahi Gulab Jamun &amp; Chhena</h3>
-                  <p className="text-xs text-[#E8E0D8] mt-1">Simmered in slow earthen fires and organic rose extract</p>
-                </div>
-              </div>
-
-              {/* Floating Award Pill */}
-              <div className="absolute -bottom-4 -left-4 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-[var(--color-border)] shadow-lg flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[var(--color-accent-gold)]/20 flex items-center justify-center text-lg">
-                  🏆
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-[var(--color-text-primary)]">Barabanki&apos;s Most Trusted</p>
-                  <p className="text-[11px] text-[var(--color-text-muted)]">Over 5,000+ Celebrations Served</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSlider />
 
       {/* ── Categories Section ────────────────────────────────────────────────── */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-labelledby="categories-heading">
-        <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4 mb-10">
-          <div>
-            <span className="section-eyebrow">Curated Mithai Range</span>
-            <h2 id="categories-heading" className="font-serif text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mt-1">
+      <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-labelledby="categories-heading">
+        <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4 mb-12">
+          <div className="text-center sm:text-left flex-1">
+            <div className="flex items-center justify-center sm:justify-start gap-3 mb-4">
+              <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+              <span className="text-2xl sm:text-3xl font-cursive text-[var(--color-primary)] capitalize">
+                Curated Mithai Range
+              </span>
+              <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C] sm:hidden"></span>
+            </div>
+            <h2 id="categories-heading" className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--color-text-primary)]">
               Explore Our Sweet Categories
             </h2>
           </div>
           <Link
             href="/categories"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] group"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors group"
           >
             View All Categories
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Horizontal Category Showcase */}
+        <div className="flex sm:grid sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 overflow-x-auto sm:overflow-visible pb-8 sm:pb-0 snap-x snap-mandatory sm:snap-none -mx-4 px-4 sm:mx-0 sm:px-0 hide-scrollbar">
           {CATEGORIES_DATA.map((cat) => (
             <Link
               key={cat.slug}
               href={`/products?category=${cat.slug}`}
-              className="group bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-primary)]/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between"
+              className="group flex flex-col items-center shrink-0 w-[160px] sm:w-auto snap-center"
             >
-              <div>
-                <span className="text-4xl mb-4 block transition-transform duration-200 group-hover:scale-110" aria-hidden="true">
-                  {cat.emoji}
-                </span>
-                <h3 className="font-serif text-xl font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-primary)] transition-colors">
-                  {cat.title}
-                </h3>
-                <p className="text-xs text-[var(--color-text-muted)] mt-2 leading-relaxed">
-                  {cat.desc}
-                </p>
+              <div className="relative w-full aspect-square max-w-[180px] mx-auto rounded-full bg-[#F2E5CE] p-2.5 transition-transform duration-300 group-hover:-translate-y-1.5 group-hover:scale-[1.02]">
+                {/* Decorative Inner Border */}
+                <div className="absolute inset-2 border border-[#C6A87C]/40 rounded-full pointer-events-none" aria-hidden="true"></div>
+                
+                {/* Image Cutout */}
+                <div className="absolute inset-3 rounded-full overflow-hidden flex items-center justify-center bg-white">
+                  <img 
+                    src={cat.imageUrl} 
+                    alt={cat.title} 
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
               </div>
-
-              <div className="mt-6 flex items-center text-xs font-semibold text-[var(--color-primary)]">
-                <span>Browse Sweets</span>
-                <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-              </div>
+              
+              <h3 className="font-serif text-lg sm:text-xl font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-primary)] transition-colors text-center mt-5 leading-tight px-2">
+                {cat.title}
+              </h3>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* ── Bestseller Products ───────────────────────────────────────────────── */}
-      <section className="py-16 bg-[#F5EFEB]/50 border-y border-[var(--color-border)]" aria-labelledby="products-heading">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4 mb-10">
-            <div>
-              <span className="section-eyebrow">Handmade Masterpieces</span>
-              <h2 id="products-heading" className="font-serif text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mt-1">
-                Featured Sweets &amp; Delicacies
-              </h2>
-            </div>
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] group"
-            >
-              Browse Complete Menu
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Bulk & Corporate Gifting Banner ───────────────────────────────────── */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[var(--color-primary)] text-white rounded-3xl p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-xl">
-          {/* Decorative Pattern */}
-          <div className="absolute right-0 top-0 opacity-10 text-9xl pointer-events-none select-none font-serif" aria-hidden="true">
-            🪷
-          </div>
-          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 rounded-full pointer-events-none" aria-hidden="true" />
-
-          <div className="relative z-10 max-w-2xl space-y-4">
-            <span className="badge-gold">
-              Weddings · Festivals · Corporate Gifting
+      {/* ── Trust Section / Why Saraswati ──────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+            <span className="text-2xl sm:text-3xl font-cursive text-[var(--color-primary)] capitalize">
+              The Saraswati Promise
             </span>
-
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
-              Order Custom Sweet Boxes for Your Special Occasions
-            </h2>
-
-            <p className="text-sm sm:text-base text-[#F5EFEB] leading-relaxed">
-              Planning a wedding, festive celebration, or company gathering? Saraswati Sweets prepares personalized gift packaging with customized mithai assortments, ribbons, and greeting cards.
-            </p>
-
-            <div className="pt-4 flex flex-wrap gap-4">
-              <Link
-                href="/bulk-enquiries"
-                className="bg-[var(--color-surface)] hover:bg-[#F5EFEB] text-[var(--color-primary)] px-6 py-3 rounded-xl text-sm font-bold shadow-sm transition-all hover:shadow-md"
-              >
-                Submit Bulk Enquiry
-              </Link>
-
-              <Link
-                href="/gift-hampers"
-                className="border border-white/60 hover:border-white text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all hover:bg-white/10"
-              >
-                View Pre-packed Hampers
-              </Link>
-            </div>
+            <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
           </div>
-        </div>
-      </section>
-
-      {/* ── Brand Heritage Values ─────────────────────────────────────────────── */}
-      <section className="py-12 bg-[var(--color-surface)] border-t border-[var(--color-border)]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)]">
+            Made With Tradition. Served With Care.
+          </h2>
+          <div className="w-24 h-[2px] bg-[#DCA47C]/40 mx-auto mt-6 mb-12"></div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
             {[
               {
-                icon: <ShieldCheck className="w-6 h-6" />,
-                title: "Zero Preservatives",
-                desc: "No artificial stabilizers, chemical coloring, or adulterated essences. Pure freshness always.",
+                icon: "🌿",
+                title: "Pure Ingredients",
+                desc: "Prepared exclusively using high-grade clarified butter and carefully selected ingredients.",
               },
               {
-                icon: <HeartHandshake className="w-6 h-6" />,
-                title: "Local Dairy Sourcing",
-                desc: "Direct procurement of milk and khoya from trusted rural dairy cooperatives around Barabanki.",
+                icon: "🔥",
+                title: "Freshly Prepared",
+                desc: "Made fresh in small batches every day by our master halwais to ensure perfect taste.",
               },
               {
-                icon: <Sparkles className="w-6 h-6 text-[var(--color-accent-gold)]" />,
-                title: "Guaranteed Taste",
-                desc: "Every batch sampled and supervised by veteran sweetmakers before reaching our storefront counters.",
+                icon: "🎁",
+                title: "Gift Ready",
+                desc: "Beautiful, premium packaging designed to elevate every occasion and celebration.",
+              },
+              {
+                icon: "🛵",
+                title: "Fresh Delivery",
+                desc: "Reliable, hygienic, and fast delivery right to your doorstep across Barabanki.",
               },
             ].map((item) => (
-              <div key={item.title} className="space-y-2">
-                <div className="w-12 h-12 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] flex items-center justify-center mx-auto" aria-hidden="true">
+              <div key={item.title} className="flex flex-col items-center">
+                <div className="w-16 h-16 rounded-full bg-[var(--color-surface-raised)] flex items-center justify-center text-3xl mb-5 shadow-sm border border-[var(--color-border)]" aria-hidden="true">
                   {item.icon}
                 </div>
-                <h4 className="font-serif text-lg font-bold text-[var(--color-text-primary)]">{item.title}</h4>
-                <p className="text-xs text-[var(--color-text-muted)] max-w-xs mx-auto">
+                <h3 className="font-serif text-xl font-bold text-[var(--color-text-primary)] mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-[var(--color-text-muted)] leading-relaxed max-w-[240px]">
                   {item.desc}
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Bestseller Products ───────────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-labelledby="products-heading">
+        <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4 mb-12">
+          <div className="text-center sm:text-left flex-1">
+            <div className="flex items-center justify-center sm:justify-start gap-3 mb-4">
+              <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+              <span className="text-2xl sm:text-3xl font-cursive text-[var(--color-primary)] capitalize">
+                Customer Favourites
+              </span>
+              <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C] sm:hidden"></span>
+            </div>
+            <h2 id="products-heading" className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--color-text-primary)]">
+              Most Loved at Saraswati
+            </h2>
+          </div>
+          <Link
+            href="/products?sort=popular"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors group"
+          >
+            View All Bestsellers
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── Occasion-Based Shopping ───────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+              <span className="text-2xl sm:text-3xl font-cursive text-[var(--color-primary)] capitalize">
+                Shop by Occasion
+              </span>
+              <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+            </div>
+            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--color-text-primary)] mb-4">
+              Celebrate With Saraswati
+            </h2>
+            <div className="w-24 h-[2px] bg-[#DCA47C]/40 mx-auto mt-6 mb-4"></div>
+            <p className="text-base text-[var(--color-text-muted)] max-w-2xl mx-auto italic font-serif">
+              Find the perfect assortment of sweets and savouries for your specific celebration.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Wedding Celebrations",
+                image: "https://images.unsplash.com/photo-1583089892943-e02e5ee6be9d?w=600&auto=format&fit=crop&q=80",
+                link: "/categories/weddings",
+              },
+              {
+                title: "Puja & Prasad",
+                image: "https://images.unsplash.com/photo-1605197584547-c93439b8bc6d?w=600&auto=format&fit=crop&q=80",
+                link: "/categories/puja",
+              },
+              {
+                title: "Festive Gifting",
+                image: "https://images.unsplash.com/photo-1579893414006-8d5940562688?w=600&auto=format&fit=crop&q=80",
+                link: "/gift-hampers",
+              },
+            ].map((occ) => (
+              <Link key={occ.title} href={occ.link} className="group relative h-80 rounded-2xl overflow-hidden block">
+                <img src={occ.image} alt={occ.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
+                  <h3 className="font-serif text-2xl font-bold text-white drop-shadow-md">
+                    {occ.title}
+                  </h3>
+                  <div className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white transition-colors group-hover:bg-[var(--color-primary)]">
+                    <ArrowRight className="w-5 h-5" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Order Now or Plan Ahead ───────────────────────────────────────────── */}
+      <section className="py-16 md:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {/* Order Now */}
+          <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-3xl p-8 sm:p-10 text-center shadow-sm flex flex-col items-center">
+            <div className="w-16 h-16 bg-[#F2E5CE] rounded-full flex items-center justify-center text-2xl mb-6">🛵</div>
+            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--color-text-primary)] mb-4">Craving Sweets?</h3>
+            <p className="text-[var(--color-text-muted)] mb-8 flex-1">
+              Order fresh mithai directly to your doorstep. We offer same-day delivery across Barabanki for all regular items.
+            </p>
+            <Link href="/products" className="w-full inline-flex items-center justify-center bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white px-8 py-3.5 rounded-xl font-semibold transition-all">
+              Order Now
+            </Link>
+          </div>
+          
+          {/* Plan Ahead */}
+          <div className="bg-[#F2E5CE] rounded-3xl p-8 sm:p-10 text-center shadow-sm flex flex-col items-center border border-[#DCA47C]/40">
+            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-2xl mb-6">📅</div>
+            <h3 className="font-serif text-2xl sm:text-3xl font-bold text-[var(--color-text-primary)] mb-4">Planning an Event?</h3>
+            <p className="text-[var(--color-text-muted)] mb-8 flex-1">
+              Weddings, corporate gifting, or large family functions? Let us help you plan the perfect sweet boxes in advance.
+            </p>
+            <Link href="/bulk-enquiries" className="w-full inline-flex items-center justify-center bg-[var(--color-text-primary)] hover:bg-black text-white px-8 py-3.5 rounded-xl font-semibold transition-all">
+              Plan My Order
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Rooted in Barabanki (Brand Story) ─────────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-[var(--color-surface)] border-y border-[var(--color-border)] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+            <div className="w-full lg:w-1/2 relative">
+              <div className="aspect-[4/5] rounded-t-[140px] rounded-b-3xl overflow-hidden relative">
+                <img src="/bottom_banner.png" alt="Barabanki Heritage" className="w-full h-full object-cover object-left" />
+                <div className="absolute inset-0 bg-[#3A3028]/10 mix-blend-multiply"></div>
+              </div>
+              <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-[#F2E5CE] rounded-full flex items-center justify-center border-4 border-white shadow-lg">
+                <span className="text-sm font-serif font-bold text-center text-[var(--color-text-primary)]">Trusted<br/>Quality</span>
+              </div>
+            </div>
+            
+            <div className="w-full lg:w-1/2">
+              <div className="flex items-center justify-start gap-3 mb-4">
+                <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+                <span className="text-2xl sm:text-3xl font-cursive text-[var(--color-primary)] capitalize">
+                  Our Story
+                </span>
+              </div>
+              <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--color-text-primary)] mb-6 leading-tight">
+                Rooted in Barabanki. Inspired by Awadh.
+              </h2>
+              <div className="space-y-4 text-base text-[var(--color-text-muted)] leading-relaxed mb-8 font-serif">
+                <p>
+                  At Saraswati Sweets, we believe that true sweetness comes from authenticity. For years, we have been crafting celebrated mithai and festive hampers, serving local families across Barabanki with unwavering dedication.
+                </p>
+                <p>
+                  Our recipes are deeply influenced by traditional Awadhi sweet-making culture, relying on pure desi ghee, locally sourced dairy, and time-honored artisanal techniques. From everyday cravings to grand wedding celebrations, we are proud to bring Barabanki ki apni mithaas to your home.
+                </p>
+              </div>
+              <Link href="/about" className="inline-flex items-center gap-2 text-[var(--color-primary)] font-semibold hover:text-[var(--color-primary-hover)] transition-colors group">
+                Read our full story
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Order Fresh / Store Location ──────────────────────────────────────── */}
+      <section className="py-16 md:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mb-6">
+          Order Fresh Sweets in Barabanki
+        </h2>
+        <p className="text-[var(--color-text-muted)] max-w-xl mx-auto mb-10">
+          Visit our storefront or order online for fast, hygienic delivery right to your door.
+        </p>
+        
+        <div className="flex flex-col md:flex-row justify-center items-center gap-8 text-left max-w-3xl mx-auto">
+          <div className="bg-[var(--color-surface)] border border-[var(--color-border)] p-6 rounded-2xl flex items-start gap-4 w-full shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] flex items-center justify-center shrink-0">
+              <MapPin className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="font-bold text-[var(--color-text-primary)] mb-1">Main Storefront</h4>
+              <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                Main Market Road<br/>Barabanki, Uttar Pradesh 225001
+              </p>
+            </div>
+          </div>
+          
+          <div className="bg-[var(--color-surface)] border border-[var(--color-border)] p-6 rounded-2xl flex items-start gap-4 w-full shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] flex items-center justify-center shrink-0">
+              <Clock className="w-5 h-5" />
+            </div>
+            <div>
+              <h4 className="font-bold text-[var(--color-text-primary)] mb-1">Opening Hours</h4>
+              <p className="text-sm text-[var(--color-text-muted)] leading-relaxed">
+                Monday – Sunday<br/>8:00 AM – 10:00 PM
+              </p>
+            </div>
           </div>
         </div>
       </section>

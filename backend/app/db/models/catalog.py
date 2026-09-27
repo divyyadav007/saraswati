@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime, timezone
 
 from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, Numeric, String, Text
-from sqlalchemy.dialects.postgresql import ARRAY, UUID
+from sqlalchemy.dialects.postgresql import ARRAY, UUID, ENUM as PG_ENUM
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base, TimestampMixin, UUIDPrimaryKeyMixin
@@ -51,7 +51,7 @@ class ProductVariant(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     price: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False)
     mrp: Mapped[float | None] = mapped_column(Numeric(10, 2), nullable=True)
     sku: Mapped[str | None] = mapped_column(Text, unique=True, nullable=True)
-    stock_status: Mapped[str] = mapped_column(String(50), default="IN_STOCK", nullable=False)
+    stock_status: Mapped[str] = mapped_column(PG_ENUM("IN_STOCK", "LIMITED", "OUT_OF_STOCK", name="stock_status", create_type=False), default="IN_STOCK", nullable=False)
     stock_quantity: Mapped[int | None] = mapped_column(Integer, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
 

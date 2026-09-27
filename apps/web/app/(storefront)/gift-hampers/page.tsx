@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -51,32 +51,34 @@ export default function GiftHampersPage() {
   return (
     <div className="min-h-screen bg-[#FDFBF7] py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Hero Section */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[var(--color-primary)] via-[#70102D] to-[#4A0A1D] text-white p-8 sm:p-12 mb-12 shadow-xl border border-rose-900/40">
-          <div className="relative z-10 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-accent-gold)]/20 border border-[var(--color-accent-gold)]/40 text-[#FBE18D] text-xs font-semibold uppercase tracking-wider mb-4">
-              <Sparkles className="w-3.5 h-3.5" />
-              Festive Gifting 2026
+        {/* ── Heritage Header & Title ─────────────────────────────────────────── */}
+        <div className="bg-[#F2E5CE] rounded-t-[80px] sm:rounded-t-[120px] rounded-b-2xl border-2 border-[#DCA47C]/40 p-8 sm:p-12 md:p-16 text-center mb-12 relative overflow-hidden shadow-sm">
+          <div className="absolute inset-0 bg-[#3A3028]/5 mix-blend-multiply pointer-events-none"></div>
+          <div className="absolute top-0 inset-x-0 h-4 bg-gradient-to-b from-[#3A3028]/10 to-transparent"></div>
+          
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+              <span className="text-2xl sm:text-3xl font-cursive text-[var(--color-primary)] capitalize">
+                Festive Gifting
+              </span>
+              <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
             </div>
-            <h1 className="font-serif text-3xl sm:text-5xl font-bold tracking-tight mb-4 leading-tight">
+            <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-[#3A3028] mb-4 leading-tight">
               Royal Festive Hampers & Mithai Boxes
             </h1>
-            <p className="text-rose-100/90 text-sm sm:text-base leading-relaxed mb-6">
-              Celebrate weddings, Diwali, and auspicious occasions with hand-curated collections of
-              pure desi ghee sweets, premium dry fruits, and regal presentation boxes.
+            <p className="text-sm md:text-base text-[#3A3028]/80 italic font-serif mb-8">
+              Celebrate weddings, Diwali, and auspicious occasions with hand-curated collections of pure desi ghee sweets, premium dry fruits, and regal presentation boxes.
             </p>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
               <Link
                 href="/bulk-enquiries"
-                className="inline-flex items-center gap-2 bg-[var(--color-accent-gold)] hover:bg-[#B38F1E] text-stone-950 font-semibold px-5 py-2.5 rounded-full text-sm transition-all shadow-md"
+                className="inline-flex items-center gap-2 bg-[#A91F3D] hover:bg-[#8B1730] text-white font-bold px-6 py-3 rounded-full text-xs uppercase tracking-widest transition-all shadow-md"
               >
                 Bulk & Corporate Orders
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-          </div>
-          <div className="absolute right-[-20px] bottom-[-20px] opacity-10 text-[200px] pointer-events-none select-none">
-            🎁
           </div>
         </div>
 
@@ -152,39 +154,31 @@ export default function GiftHampersPage() {
                       </p>
                     </div>
 
-                    <div className="pt-3 border-t border-stone-100 flex items-center justify-between gap-3">
-                      <div>
-                        <span className="text-[11px] uppercase tracking-wider text-stone-500 block font-medium">Price</span>
-                        <span className="text-xl font-bold text-stone-900">
+                    <div className="pt-4 mt-2 flex flex-col gap-3">
+                      <div className="flex items-end justify-between">
+                        <span className="text-[10px] uppercase tracking-wider text-stone-500 block font-medium">Price</span>
+                        <span className="font-serif text-xl font-bold text-[var(--color-primary)]">
                           ₹{hamper.hamper_price.toFixed(2)}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2">
-                        <Link
-                          href={`/gift-hampers/${hamper.slug}`}
-                          className="px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 bg-stone-100 hover:bg-stone-200 transition-colors"
-                        >
-                          View Details
-                        </Link>
+                      <div className="flex items-center gap-2 w-full">
                         <button
                           onClick={() => handleAddToCart(hamper)}
                           disabled={isAdded}
-                          className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-all shadow-sm ${
+                          className={`w-full flex justify-center items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-sm uppercase tracking-wide ${
                             isAdded
                               ? "bg-emerald-600 text-white"
-                              : "bg-[var(--color-primary)] hover:bg-[#70102D] text-white"
+                              : "bg-[var(--color-primary)] hover:bg-[#801b2a] text-white hover:shadow-md"
                           }`}
                         >
                           {isAdded ? (
                             <>
-                              <Check className="w-3.5 h-3.5" />
-                              Added
+                              <Check className="w-4 h-4" /> Added
                             </>
                           ) : (
                             <>
-                              <ShoppingBag className="w-3.5 h-3.5" />
-                              Add
+                              <ShoppingBag className="w-4 h-4" /> Add to Cart
                             </>
                           )}
                         </button>

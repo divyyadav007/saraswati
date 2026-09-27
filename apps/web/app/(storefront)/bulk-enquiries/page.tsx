@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -77,19 +77,26 @@ export default function BulkEnquiriesPage() {
   return (
     <div className="min-h-screen bg-[#FDFBF7] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
-        {/* Header Hero */}
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-semibold uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            Corporate & Wedding Sweet Concierge
+        {/* ── Heritage Header & Title ─────────────────────────────────────────── */}
+        <div className="bg-[#F2E5CE] rounded-t-[80px] sm:rounded-t-[120px] rounded-b-2xl border-2 border-[#DCA47C]/40 p-8 sm:p-12 md:p-16 text-center mb-10 relative overflow-hidden shadow-sm">
+          <div className="absolute inset-0 bg-[#3A3028]/5 mix-blend-multiply pointer-events-none"></div>
+          <div className="absolute top-0 inset-x-0 h-4 bg-gradient-to-b from-[#3A3028]/10 to-transparent"></div>
+          
+          <div className="relative z-10 max-w-2xl mx-auto">
+            <div className="flex items-center justify-center gap-3 mb-4">
+              <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+              <span className="text-2xl sm:text-3xl font-cursive text-[var(--color-primary)] capitalize">
+                Sweet Concierge
+              </span>
+              <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+            </div>
+            <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#3A3028] mb-4 leading-tight">
+              Custom Bulk Mithai & Gift Hampers
+            </h1>
+            <p className="text-sm md:text-base text-[#3A3028]/80 italic font-serif max-w-xl mx-auto">
+              From regal wedding favors to festive corporate gifting boxes with custom corporate branding, our team crafts unforgettable sweet experiences for any gathering.
+            </p>
           </div>
-          <h1 className="font-serif text-3xl sm:text-5xl font-bold text-stone-900 tracking-tight mb-4">
-            Custom Bulk Mithai & Gift Hampers
-          </h1>
-          <p className="text-stone-600 max-w-2xl mx-auto text-sm sm:text-base leading-relaxed">
-            From regal wedding favors to festive corporate gifting boxes with custom corporate branding,
-            our team crafts unforgettable sweet experiences for any gathering.
-          </p>
         </div>
 
         {/* Value Proposition Cards */}

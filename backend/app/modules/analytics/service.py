@@ -37,12 +37,11 @@ class AnalyticsService:
 
         # 1. Today's orders & revenue query
         # Filter for revenue eligibility:
-        # Online paid or COD active orders
         revenue_filter = and_(
             Order.created_at >= today_start,
             Order.status.not_in(["CANCELLED"]),
             (
-                Order.payment_status.in_(["PAID", "CAPTURED"])
+                Order.payment_status.in_(["CAPTURED"])
                 | (
                     (Order.payment_method == "COD")
                     & Order.status.in_(["CONFIRMED", "PREPARING", "READY_FOR_PICKUP", "OUT_FOR_DELIVERY", "DELIVERED"])
@@ -62,12 +61,12 @@ class AnalyticsService:
 
         # 2. Pending orders count (any active, non-delivered, non-cancelled order)
         pending_query = select(func.count(Order.id)).where(
-            Order.status.in_(["PENDING", "CONFIRMED", "PREPARING", "READY_FOR_PICKUP", "OUT_FOR_DELIVERY"])
+            Order.status.in_(["PLACED", "CONFIRMED", "PREPARING", "READY_FOR_PICKUP", "OUT_FOR_DELIVERY"])
         )
         pending_orders = int((await db.execute(pending_query)).scalar() or 0)
 
-        # 3. Orders awaiting action (PENDING state)
-        awaiting_query = select(func.count(Order.id)).where(Order.status == "PENDING")
+        # 3. Orders awaiting action (PLACED state)
+        awaiting_query = select(func.count(Order.id)).where(Order.status == "PLACED")
         orders_awaiting_action = int((await db.execute(awaiting_query)).scalar() or 0)
 
         # 4. Total active products count
@@ -81,7 +80,7 @@ class AnalyticsService:
             .where(
                 ProductVariant.is_active.is_(True),
                 (
-                    (ProductVariant.stock_status == "LOW_STOCK")
+                    (ProductVariant.stock_status == "LIMITED")
                     | (
                         ProductVariant.stock_quantity.is_not(None)
                         & (ProductVariant.stock_quantity <= 5)

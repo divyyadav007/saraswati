@@ -266,28 +266,28 @@ export default async function ProductDetailPage(props: ProductPageProps) {
   return (
     <div className="min-h-screen bg-[#FBF7F2] py-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb Navigation */}
-        <nav className="flex items-center space-x-2 text-sm text-stone-500 mb-6">
-          <Link href="/" className="hover:text-[#8A1538] transition-colors">
+        {/* ── Heritage Breadcrumb ────────────────────────────────────────────── */}
+        <nav className="flex items-center space-x-2 text-[10px] sm:text-xs text-[#3A3028]/60 mb-6 font-medium tracking-[0.1em] uppercase" aria-label="Breadcrumb">
+          <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">
             Home
           </Link>
-          <span>/</span>
-          <Link href="/products" className="hover:text-[#8A1538] transition-colors">
+          <span aria-hidden="true">/</span>
+          <Link href="/products" className="hover:text-[var(--color-primary)] transition-colors">
             Sweets
           </Link>
           {product.category && (
             <>
-              <span>/</span>
+              <span aria-hidden="true">/</span>
               <Link
                 href={`/products?category=${product.category.slug}`}
-                className="hover:text-[#8A1538] transition-colors"
+                className="hover:text-[var(--color-primary)] transition-colors"
               >
                 {product.category.name}
               </Link>
             </>
           )}
-          <span>/</span>
-          <span className="text-stone-800 font-medium truncate max-w-xs">{product.name}</span>
+          <span aria-hidden="true">/</span>
+          <span className="text-[var(--color-primary)] font-bold truncate max-w-xs">{product.name}</span>
         </nav>
 
         {/* Product Detail Interactive View */}

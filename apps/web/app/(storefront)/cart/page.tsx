@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
@@ -23,12 +23,22 @@ export default function CartPage() {
   return (
     <div className="min-h-screen bg-[var(--color-background)] py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <h1 className="font-serif text-3xl font-bold text-[var(--color-text-primary)] mb-2">
-          Your Mithai Box
-        </h1>
-        <p className="text-sm text-[var(--color-text-muted)] mb-8">
-          Freshly made with 100% pure desi ghee & traditional recipes
-        </p>
+        {/* ── Heritage Title ──────────────────────────────────────────────── */}
+        <div className="text-center mb-10 mt-4">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+            <span className="text-2xl sm:text-3xl font-cursive text-[var(--color-primary)] capitalize">
+              Handcrafted
+            </span>
+            <span className="w-8 sm:w-16 h-[1px] bg-[#DCA47C]"></span>
+          </div>
+          <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-[#3A3028] mb-3">
+            Your Mithai Box
+          </h1>
+          <p className="text-sm md:text-base text-[#3A3028]/80 italic font-serif">
+            Freshly made with pure desi ghee and traditional Barabanki recipes.
+          </p>
+        </div>
 
         {items.length === 0 ? (
           <div className="bg-[var(--color-surface)] rounded-2xl p-12 text-center border border-[var(--color-border)] max-w-md mx-auto shadow-xs">

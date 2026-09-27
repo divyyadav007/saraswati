@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -85,23 +85,17 @@ export default function CheckoutPage() {
   const supabase = createSupabaseBrowserClient();
   const { mergeGuestCart } = useCart();
 
-  const getAuthToken = () => {
-    if (typeof window === "undefined") return null;
-    return localStorage.getItem("auth_token") || null;
-  };
-
   // Load addresses & delivery slots on mount
   useEffect(() => {
-    const token = getAuthToken();
-    if (token) {
-      setAuthStep("done");
-      loadCheckoutData(token);
-    } else {
-      setAuthStep("email");
-      // Still load public data like slots
-      loadCheckoutData(null);
-    }
-  }, []);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) {
+        setAuthStep("done");
+        loadCheckoutData(session.access_token);
+      } else {
+        router.push("/login?returnTo=/checkout");
+      }
+    });
+  }, [router]);
 
   const loadCheckoutData = (token: string | null) => {
     // Fetch delivery slots (public)
@@ -438,90 +432,13 @@ export default function CheckoutPage() {
           {/* Main Checkout Column */}
           <div className="lg:col-span-8 space-y-6">
             {authStep !== "done" ? (
-              <div className="bg-[var(--color-surface)] rounded-2xl p-6 border border-[var(--color-border)] shadow-xs space-y-6">
-                <div className="flex items-center gap-2.5 border-b border-[var(--color-border)] pb-3">
-                  <div className="w-8 h-8 rounded-full bg-[var(--color-primary)] text-white flex items-center justify-center font-bold text-sm">
-                    0
-                  </div>
-                  <div>
-                    <h2 className="font-serif font-bold text-lg text-[var(--color-text-primary)]">
-                      Customer Verification
-                    </h2>
-                    <p className="text-xs text-[var(--color-text-muted)]">
-                      Verify your mobile number to proceed
-                    </p>
-                  </div>
-                </div>
-                {authError && (
-                  <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-sm">
-                    {authError}
-                  </div>
-                )}
-                {authStep === "email" ? (
-                  <form onSubmit={handleSendOtp} className="space-y-4 max-w-sm">
-                    <div>
-                      <label className="block text-sm font-medium text-stone-700">Full Name (Optional)</label>
-                      <input
-                        type="text"
-                        value={authFullName}
-                        onChange={(e) => setAuthFullName(e.target.value)}
-                        className="mt-1 block w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] sm:text-sm"
-                        placeholder="E.g. Rahul Sharma"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-stone-700">Email Address</label>
-                      <div className="mt-1 flex rounded-md shadow-sm">
-                        <input
-                          type="email"
-                          required
-                          value={authEmail}
-                          onChange={(e) => setAuthEmail(e.target.value)}
-                          className="flex-1 block w-full px-3 py-2 rounded-md border border-stone-300 focus:outline-none focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] sm:text-sm"
-                          placeholder="rahul@example.com"
-                        />
-                      </div>
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={authLoading || !authEmail.includes("@")}
-                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--color-primary)] hover:bg-maroon-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)] disabled:opacity-50"
-                    >
-                      {authLoading ? "Sending..." : "Send OTP"}
-                    </button>
-                  </form>
-                ) : (
-                  <form onSubmit={handleVerifyOtp} className="space-y-4 max-w-sm">
-                    <div>
-                      <label className="block text-sm font-medium text-stone-700">Enter 6-digit OTP</label>
-                      <input
-                        type="text"
-                        required
-                        maxLength={6}
-                        value={authOtp}
-                        onChange={(e) => setAuthOtp(e.target.value.replace(/\D/g, ""))}
-                        className="mt-1 block w-full px-3 py-2 border border-stone-300 rounded-md focus:outline-none focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] sm:text-sm text-center tracking-widest text-lg"
-                        placeholder="------"
-                      />
-                      <p className="mt-2 text-xs text-stone-500">
-                        Sent to {authEmail}
-                        <button type="button" onClick={() => setAuthStep("email")} className="ml-2 text-[var(--color-accent-gold)] hover:underline">
-                          Change Email
-                        </button>
-                      </p>
-                    </div>
-                    <button
-                      type="submit"
-                      disabled={authLoading || authOtp.length < 6}
-                      className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[var(--color-primary)] hover:bg-maroon-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)] disabled:opacity-50"
-                    >
-                      {authLoading ? "Verifying..." : "Verify & Continue"}
-                    </button>
-                  </form>
-                )}
+              <div className="bg-[var(--color-surface)] rounded-2xl p-6 border border-[var(--color-border)] shadow-xs space-y-6 text-center">
+                <p>Redirecting to login...</p>
               </div>
             ) : (
               <>
+            {/* Step 1: Delivery Address */}
+
             {/* Step 1: Delivery Address */}
             <div className="bg-[var(--color-surface)] rounded-2xl p-6 border border-[var(--color-border)] shadow-xs space-y-4">
               <div className="flex items-center justify-between border-b border-[var(--color-border)] pb-3">

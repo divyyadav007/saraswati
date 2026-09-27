@@ -43,7 +43,7 @@ class Order(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     delivery_slot_id: Mapped[uuid.UUID | None] = mapped_column(UUID(as_uuid=True), ForeignKey("delivery_slots.id", ondelete="RESTRICT"), nullable=True)
     status: Mapped[str] = mapped_column(PG_ENUM("PENDING_PAYMENT", "PLACED", "CONFIRMED", "PREPARING", "READY_FOR_PICKUP", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED", "REFUNDED", name="order_status", create_type=False), default="PENDING_PAYMENT", nullable=False)
     payment_method: Mapped[str] = mapped_column(PG_ENUM("ONLINE", "COD", name="payment_method", create_type=False), nullable=False)
-    payment_status: Mapped[str] = mapped_column(PG_ENUM("PENDING", "SUCCESS", "FAILED", "REFUNDED", "COD_PENDING", name="payment_status", create_type=False), nullable=False)
+    payment_status: Mapped[str] = mapped_column(PG_ENUM("PENDING", "COD_PENDING", "CAPTURED", "FAILED", "REFUNDED", name="payment_status", create_type=False), nullable=False)
     subtotal: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False)
     discount_amount: Mapped[float] = mapped_column(Numeric(10, 2), default=0, nullable=False)
     delivery_charge: Mapped[float] = mapped_column(Numeric(10, 2), default=0, nullable=False)
