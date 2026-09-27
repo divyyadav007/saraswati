@@ -34,6 +34,15 @@ export default function AdminLayout({
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  if (pathname === "/admin/login") {
+    return <>{children}</>;
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("auth_token");
+    window.location.href = "/admin/login";
+  };
+
   return (
     <div className="min-h-screen bg-stone-100 flex flex-col md:flex-row font-sans text-stone-900">
       {/* Mobile Top Header */}
@@ -108,7 +117,7 @@ export default function AdminLayout({
         </nav>
 
         {/* Bottom Storefront Link & Admin Status */}
-        <div className="p-4 border-t border-rose-900/40 bg-rose-950/30">
+        <div className="p-4 border-t border-rose-900/40 bg-rose-950/30 flex flex-col space-y-2">
           <Link
             href="/"
             className="flex items-center justify-center space-x-2 w-full py-2 px-3 rounded-lg border border-amber-300/30 text-amber-200 hover:bg-rose-900/50 text-xs font-medium transition-colors"
@@ -116,7 +125,14 @@ export default function AdminLayout({
             <span>🏪</span>
             <span>View Public Storefront</span>
           </Link>
-          <div className="mt-3 text-[11px] text-rose-300/70 text-center">
+          <button
+            onClick={handleLogout}
+            className="flex items-center justify-center space-x-2 w-full py-2 px-3 rounded-lg bg-rose-950 text-rose-200 hover:bg-rose-900/80 hover:text-white text-xs font-medium transition-colors"
+          >
+            <span>🚪</span>
+            <span>Logout</span>
+          </button>
+          <div className="mt-2 text-[11px] text-rose-300/70 text-center">
             Role: Store Admin • Phase 2
           </div>
         </div>
