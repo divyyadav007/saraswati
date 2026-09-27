@@ -1,0 +1,13 @@
+{
+  "name": "saraswati",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Saraswati Sweetshop — Online Ordering Platform",
+  "scripts": {
+    "dev:web": "pnpm --filter web dev",
+    "build:web": "pnpm --filter web build",
+    "dev:mobile": "npm --prefix apps/mobile start",
+    "dev:backend": "cd backend && venv\\Scripts\\uvicorn app.main:app --reload",
+    "test:backend": "cd backend && venv\\Scripts\\pytest"
+  }
+}
