@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -48,7 +48,7 @@ export default function AdminDashboardPage() {
           </Link>
           <Link
             href="/admin/products/new"
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-[#8A1538] hover:bg-[#70102D] shadow-sm"
+            className="inline-flex items-center px-4 py-2 border border-transparent rounded-lg text-sm font-medium text-white bg-[var(--color-primary)] hover:bg-[#70102D] shadow-sm"
           >
             + Add New Sweet
           </Link>
@@ -184,3 +184,4 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
+

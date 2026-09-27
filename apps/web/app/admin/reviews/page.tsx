@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { reviewApi, ReviewModel } from "@/lib/api-client";
@@ -64,7 +64,7 @@ export default function AdminReviewsPage() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-serif font-bold text-2xl md:text-3xl text-stone-900 flex items-center gap-2.5">
-            <span className="p-2 rounded-xl bg-amber-100 text-[#8A1538] text-xl">⭐</span>
+            <span className="p-2 rounded-xl bg-amber-100 text-[var(--color-primary)] text-xl">⭐</span>
             Review Moderation Queue
           </h1>
           <p className="text-xs md:text-sm text-stone-500 mt-1">
@@ -78,7 +78,7 @@ export default function AdminReviewsPage() {
             onClick={() => setFilter("PENDING")}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
               filter === "PENDING"
-                ? "bg-[#8A1538] text-white"
+                ? "bg-[var(--color-primary)] text-white"
                 : "text-stone-600 hover:text-stone-900"
             }`}
           >
@@ -88,7 +88,7 @@ export default function AdminReviewsPage() {
             onClick={() => setFilter("PUBLISHED")}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
               filter === "PUBLISHED"
-                ? "bg-[#8A1538] text-white"
+                ? "bg-[var(--color-primary)] text-white"
                 : "text-stone-600 hover:text-stone-900"
             }`}
           >
@@ -98,7 +98,7 @@ export default function AdminReviewsPage() {
             onClick={() => setFilter("ALL")}
             className={`px-3 py-1.5 rounded-lg transition-colors ${
               filter === "ALL"
-                ? "bg-[#8A1538] text-white"
+                ? "bg-[var(--color-primary)] text-white"
                 : "text-stone-600 hover:text-stone-900"
             }`}
           >
@@ -212,3 +212,4 @@ export default function AdminReviewsPage() {
     </div>
   );
 }
+

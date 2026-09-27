@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import {
@@ -83,7 +83,7 @@ export default function AdminCustomersPage() {
             placeholder="Search by customer name, phone number, or email..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 px-4 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+            className="flex-1 px-4 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
           />
           <button
             type="submit"
@@ -169,7 +169,7 @@ export default function AdminCustomersPage() {
                     <td className="px-6 py-4 text-right">
                       <button
                         onClick={() => viewCustomerDetails(c.id)}
-                        className="text-[#8A1538] hover:text-[#70102D] font-medium text-xs hover:underline"
+                        className="text-[var(--color-primary)] hover:text-[#70102D] font-medium text-xs hover:underline"
                       >
                         Order History →
                       </button>
@@ -299,3 +299,4 @@ export default function AdminCustomersPage() {
     </div>
   );
 }
+

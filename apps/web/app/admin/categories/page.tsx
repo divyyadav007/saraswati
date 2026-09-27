@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { catalogApi, Category } from "@/lib/api-client";
@@ -125,7 +125,7 @@ export default function AdminCategoriesPage() {
         </div>
         <button
           onClick={openAddModal}
-          className="inline-flex items-center px-4 py-2.5 rounded-lg bg-[#8A1538] text-white text-sm font-medium hover:bg-rose-900 transition-colors shadow-sm"
+          className="inline-flex items-center px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-rose-900 transition-colors shadow-sm"
         >
           <span className="mr-2 text-base">+</span> Add Category
         </button>
@@ -179,7 +179,7 @@ export default function AdminCategoriesPage() {
                             className="w-10 h-10 rounded-lg object-cover border border-stone-200"
                           />
                         ) : (
-                          <div className="w-10 h-10 rounded-lg bg-amber-50 text-[#8A1538] flex items-center justify-center font-bold text-xs border border-amber-200">
+                          <div className="w-10 h-10 rounded-lg bg-amber-50 text-[var(--color-primary)] flex items-center justify-center font-bold text-xs border border-amber-200">
                             {cat.name.slice(0, 2).toUpperCase()}
                           </div>
                         )}
@@ -252,7 +252,7 @@ export default function AdminCategoriesPage() {
                   value={formData.name}
                   onChange={(e) => handleNameChange(e.target.value)}
                   placeholder="e.g. Kaju & Dry Fruit Sweets"
-                  className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[#8A1538]"
+                  className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[var(--color-primary)]"
                 />
               </div>
 
@@ -268,7 +268,7 @@ export default function AdminCategoriesPage() {
                     setFormData((prev) => ({ ...prev, slug: e.target.value }))
                   }
                   placeholder="e.g. kaju-dryfruit"
-                  className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm font-mono text-xs focus:outline-hidden focus:border-[#8A1538]"
+                  className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm font-mono text-xs focus:outline-hidden focus:border-[var(--color-primary)]"
                 />
               </div>
 
@@ -283,7 +283,7 @@ export default function AdminCategoriesPage() {
                     setFormData((prev) => ({ ...prev, description: e.target.value }))
                   }
                   placeholder="Brief description for category listings"
-                  className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[#8A1538]"
+                  className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[var(--color-primary)]"
                 />
               </div>
 
@@ -298,7 +298,7 @@ export default function AdminCategoriesPage() {
                     setFormData((prev) => ({ ...prev, image_url: e.target.value }))
                   }
                   placeholder="https://..."
-                  className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[#8A1538]"
+                  className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[var(--color-primary)]"
                 />
               </div>
 
@@ -316,7 +316,7 @@ export default function AdminCategoriesPage() {
                         display_order: parseInt(e.target.value) || 0,
                       }))
                     }
-                    className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[#8A1538]"
+                    className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[var(--color-primary)]"
                   />
                 </div>
 
@@ -331,7 +331,7 @@ export default function AdminCategoriesPage() {
                           is_active: e.target.checked,
                         }))
                       }
-                      className="rounded text-[#8A1538] focus:ring-[#8A1538] w-4 h-4"
+                      className="rounded text-[var(--color-primary)] focus:ring-[var(--color-primary)] w-4 h-4"
                     />
                     <span className="text-xs font-medium text-stone-700">
                       Active Category
@@ -351,7 +351,7 @@ export default function AdminCategoriesPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-4 py-2 bg-[#8A1538] text-white text-xs font-semibold rounded-lg hover:bg-rose-900 transition-colors shadow-xs disabled:opacity-50"
+                  className="px-4 py-2 bg-[var(--color-primary)] text-white text-xs font-semibold rounded-lg hover:bg-rose-900 transition-colors shadow-xs disabled:opacity-50"
                 >
                   {submitting ? "Saving..." : editingCategory ? "Save Changes" : "Create Category"}
                 </button>
@@ -363,3 +363,4 @@ export default function AdminCategoriesPage() {
     </div>
   );
 }
+

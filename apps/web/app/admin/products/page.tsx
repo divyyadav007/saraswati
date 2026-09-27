@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -339,7 +339,7 @@ export default function AdminProductsPage() {
         </div>
         <button
           onClick={openAddModal}
-          className="inline-flex items-center px-4 py-2.5 rounded-lg bg-[#8A1538] text-white text-sm font-medium hover:bg-rose-900 transition-colors shadow-sm"
+          className="inline-flex items-center px-4 py-2.5 rounded-lg bg-[var(--color-primary)] text-white text-sm font-medium hover:bg-rose-900 transition-colors shadow-sm"
         >
           <span className="mr-2 text-base">+</span> Add Product
         </button>
@@ -353,14 +353,14 @@ export default function AdminProductsPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search by sweet name or category..."
-            className="w-full pl-9 pr-4 py-2 border border-stone-300 rounded-lg text-sm bg-white focus:outline-hidden focus:border-[#8A1538]"
+            className="w-full pl-9 pr-4 py-2 border border-stone-300 rounded-lg text-sm bg-white focus:outline-hidden focus:border-[var(--color-primary)]"
           />
           <span className="absolute left-3 top-2.5 text-stone-400">🔍</span>
         </div>
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white focus:outline-hidden focus:border-[#8A1538]"
+          className="px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white focus:outline-hidden focus:border-[var(--color-primary)]"
         >
           <option value="">All Categories ({categories.length})</option>
           {categories.map((c) => (
@@ -414,7 +414,7 @@ export default function AdminProductsPage() {
                             className="w-12 h-12 rounded-lg object-cover border border-stone-200"
                           />
                         ) : (
-                          <div className="w-12 h-12 rounded-lg bg-amber-50 text-[#8A1538] flex items-center justify-center font-bold text-sm border border-amber-200">
+                          <div className="w-12 h-12 rounded-lg bg-amber-50 text-[var(--color-primary)] flex items-center justify-center font-bold text-sm border border-amber-200">
                             🍬
                           </div>
                         )}
@@ -434,7 +434,7 @@ export default function AdminProductsPage() {
                         {p.variants?.length || 1} size(s)
                       </span>
                     </td>
-                    <td className="py-4 px-6 font-semibold text-[#8A1538]">
+                    <td className="py-4 px-6 font-semibold text-[var(--color-primary)]">
                       ₹{p.starting_price || p.min_price || 0}
                     </td>
                     <td className="py-4 px-6">
@@ -523,7 +523,7 @@ export default function AdminProductsPage() {
                       value={formData.name}
                       onChange={(e) => handleNameChange(e.target.value)}
                       placeholder="e.g. Kaju Katli (Royal Silver)"
-                      className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[#8A1538]"
+                      className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[var(--color-primary)]"
                     />
                   </div>
 
@@ -540,7 +540,7 @@ export default function AdminProductsPage() {
                           category_id: e.target.value,
                         }))
                       }
-                      className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white focus:outline-hidden focus:border-[#8A1538]"
+                      className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm bg-white focus:outline-hidden focus:border-[var(--color-primary)]"
                     >
                       <option value="">Select Category</option>
                       {categories.map((c) => (
@@ -564,7 +564,7 @@ export default function AdminProductsPage() {
                       onChange={(e) =>
                         setFormData((prev) => ({ ...prev, slug: e.target.value }))
                       }
-                      className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm font-mono text-xs focus:outline-hidden focus:border-[#8A1538]"
+                      className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm font-mono text-xs focus:outline-hidden focus:border-[var(--color-primary)]"
                     />
                   </div>
 
@@ -582,7 +582,7 @@ export default function AdminProductsPage() {
                         }))
                       }
                       placeholder="desi-ghee, cashew, silver-vark"
-                      className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[#8A1538]"
+                      className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[var(--color-primary)]"
                     />
                   </div>
                 </div>
@@ -601,7 +601,7 @@ export default function AdminProductsPage() {
                       }))
                     }
                     placeholder="Rich description highlighting pure desi ghee or cashew indulgence..."
-                    className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[#8A1538]"
+                    className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-hidden focus:border-[var(--color-primary)]"
                   />
                 </div>
 
@@ -616,7 +616,7 @@ export default function AdminProductsPage() {
                           is_featured: e.target.checked,
                         }))
                       }
-                      className="rounded text-[#8A1538] focus:ring-[#8A1538] w-4 h-4"
+                      className="rounded text-[var(--color-primary)] focus:ring-[var(--color-primary)] w-4 h-4"
                     />
                     <span className="text-xs font-medium text-stone-700">
                       ⭐ Featured on Homepage
@@ -633,7 +633,7 @@ export default function AdminProductsPage() {
                           is_active: e.target.checked,
                         }))
                       }
-                      className="rounded text-[#8A1538] focus:ring-[#8A1538] w-4 h-4"
+                      className="rounded text-[var(--color-primary)] focus:ring-[var(--color-primary)] w-4 h-4"
                     />
                     <span className="text-xs font-medium text-stone-700">
                       Active (Visible to Shoppers)
@@ -704,7 +704,7 @@ export default function AdminProductsPage() {
                       </div>
 
                       <div className="col-span-1">
-                        <label className="block text-[10px] uppercase font-bold text-[#8A1538]">
+                        <label className="block text-[10px] uppercase font-bold text-[var(--color-primary)]">
                           Price (₹) *
                         </label>
                         <input
@@ -853,7 +853,7 @@ export default function AdminProductsPage() {
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2.5 bg-[#8A1538] text-white text-xs font-semibold rounded-lg hover:bg-rose-900 transition-colors shadow-sm disabled:opacity-50"
+                  className="px-5 py-2.5 bg-[var(--color-primary)] text-white text-xs font-semibold rounded-lg hover:bg-rose-900 transition-colors shadow-sm disabled:opacity-50"
                 >
                   {submitting
                     ? "Saving..."
@@ -869,3 +869,4 @@ export default function AdminProductsPage() {
     </div>
   );
 }
+

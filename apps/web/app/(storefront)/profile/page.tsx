@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
@@ -139,7 +139,7 @@ export default function CustomerProfilePage() {
       )}
 
       {/* Personal Info Form */}
-      <div className="bg-white rounded-2xl border border-stone-200 p-6 md:p-8 shadow-sm space-y-6">
+      <div className="bg-[var(--color-surface)] rounded-2xl border border-stone-200 p-6 md:p-8 shadow-sm space-y-6">
         <h2 className="text-xl font-serif font-bold text-stone-900 border-b border-stone-100 pb-3">
           Personal Information
         </h2>
@@ -155,7 +155,7 @@ export default function CustomerProfilePage() {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Your full name"
-                className="w-full px-3.5 py-2.5 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+                className="w-full px-3.5 py-2.5 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
             </div>
             <div>
@@ -167,7 +167,7 @@ export default function CustomerProfilePage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@example.com"
-                className="w-full px-3.5 py-2.5 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+                className="w-full px-3.5 py-2.5 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
             </div>
           </div>
@@ -191,7 +191,7 @@ export default function CustomerProfilePage() {
             <button
               type="submit"
               disabled={savingProfile}
-              className="px-6 py-2.5 bg-[#8A1538] hover:bg-[#70102D] text-white text-sm font-medium rounded-lg shadow-sm transition-colors disabled:opacity-50"
+              className="px-6 py-2.5 bg-[var(--color-primary)] hover:bg-[#70102D] text-white text-sm font-medium rounded-lg shadow-sm transition-colors disabled:opacity-50"
             >
               {savingProfile ? "Saving..." : "Save Profile"}
             </button>
@@ -200,7 +200,7 @@ export default function CustomerProfilePage() {
       </div>
 
       {/* Notification Preferences */}
-      <div className="bg-white rounded-2xl border border-stone-200 p-6 md:p-8 shadow-sm space-y-6">
+      <div className="bg-[var(--color-surface)] rounded-2xl border border-stone-200 p-6 md:p-8 shadow-sm space-y-6">
         <h2 className="text-xl font-serif font-bold text-stone-900 border-b border-stone-100 pb-3">
           Notification Preferences
         </h2>
@@ -220,10 +220,11 @@ export default function CustomerProfilePage() {
               onChange={(e) => handleToggleNotifications(e.target.checked)}
               className="sr-only peer"
             />
-            <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#8A1538]"></div>
+            <div className="w-11 h-6 bg-stone-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[var(--color-surface)] after:border-stone-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[var(--color-primary)]"></div>
           </label>
         </div>
       </div>
     </div>
   );
 }
+

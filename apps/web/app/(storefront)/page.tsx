@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, Sparkles, Gift, ShieldCheck, HeartHandshake, Tag, Flame } from "lucide-react";
-import { catalogApi, bannerApi, offerApi, ProductListItem, BannerModel, OfferModel } from "@/lib/api-client";
+import { ArrowRight, Sparkles, Gift, ShieldCheck, HeartHandshake } from "lucide-react";
+import { catalogApi, ProductListItem } from "@/lib/api-client";
 import { ProductCard } from "@/components/storefront/ProductCard";
+
 
 // Fallback products if backend is offline during initial static generation
 const FALLBACK_PRODUCTS: ProductListItem[] = [
@@ -89,71 +90,70 @@ const CATEGORIES_DATA = [
     slug: "traditional-sweets",
     emoji: "🪷",
     desc: "Desi Ghee Laddoos, Gulab Jamun & Classic Khoya Sweets",
+    color: "from-rose-50 to-pink-50",
   },
   {
     title: "Dry Fruit Mithai",
     slug: "dry-fruit-sweets",
     emoji: "💎",
     desc: "Shahi Kaju Katli, Pista Rolls & Fig Barfi",
+    color: "from-amber-50 to-yellow-50",
   },
   {
     title: "Bengali Chhena",
     slug: "bengali-sweets",
     emoji: "✨",
     desc: "Spongy Rasgulla, Sandesh, Cham Cham & Rasmalai",
+    color: "from-sky-50 to-blue-50",
   },
   {
     title: "Savouries & Namkeen",
     slug: "savouries",
     emoji: "🌶️",
     desc: "Crispy Mathri, Dalmoth, Samosa & Khasta Kachori",
+    color: "from-orange-50 to-amber-50",
   },
 ];
 
 export default async function HomePage() {
   let products = FALLBACK_PRODUCTS;
-  let banners: BannerModel[] = [];
-  let offers: OfferModel[] = [];
 
   try {
-    const [prodRes, bannerRes, offerRes] = await Promise.allSettled([
-      catalogApi.getProducts({ is_featured: true, page_size: 4 }),
-      bannerApi.listActive(),
-      offerApi.listActive(),
-    ]);
-
-    if (prodRes.status === "fulfilled" && prodRes.value?.items && prodRes.value.items.length > 0) {
-      products = prodRes.value.items;
-    }
-    if (bannerRes.status === "fulfilled" && Array.isArray(bannerRes.value)) {
-      banners = bannerRes.value;
-    }
-    if (offerRes.status === "fulfilled" && Array.isArray(offerRes.value)) {
-      offers = offerRes.value;
+    const prodRes = await catalogApi.getProducts({ is_featured: true, page_size: 4 });
+    if (prodRes?.items && prodRes.items.length > 0) {
+      products = prodRes.items;
     }
   } catch {
-    // Graceful fallback to static curation if backend is not yet booted
     products = FALLBACK_PRODUCTS;
   }
 
   return (
     <main>
+
       {/* ── Hero Section ──────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#F5EFEB] to-[#FBF7F2] py-16 md:py-24 border-b border-[#E8E0D8]">
+      <section className="relative overflow-hidden bg-gradient-to-b from-[#F5EFEB] to-[var(--color-background)] py-16 md:py-24 border-b border-[var(--color-border)]">
+        {/* Decorative background circles */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--color-primary)]/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-[var(--color-accent-gold)]/8 rounded-full blur-2xl pointer-events-none" aria-hidden="true" />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Copy */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 bg-[#8A1538]/10 text-[#8A1538] px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase">
-                <Sparkles className="w-3.5 h-3.5 text-[#C9A227]" />
+              <div className="inline-flex items-center gap-2 bg-[var(--color-primary)]/10 text-[var(--color-primary)] px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wide uppercase">
+                <Sparkles className="w-3.5 h-3.5 text-[var(--color-accent-gold)]" aria-hidden="true" />
                 Barabanki&apos;s Iconic Sweetshop Since Inception
               </div>
 
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1F1B16] leading-[1.15] tracking-tight">
-                Authentic Mithai, Crafted in <span className="text-[#8A1538]">Pure Desi Ghee</span>
+              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--color-text-primary)] leading-[1.15] tracking-tight">
+                Authentic Mithai, Crafted in{" "}
+                <span className="text-[var(--color-primary)] relative">
+                  Pure Desi Ghee
+                  <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[var(--color-accent-gold)]/60 rounded-full" aria-hidden="true" />
+                </span>
               </h1>
 
-              <p className="text-base sm:text-lg text-[#6B6258] max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
+              <p className="text-base sm:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto lg:mx-0 leading-relaxed">
                 Indulge in time-honored Indian sweets made daily with pure cow milk, premium saffron, and slow-churned artisanal ghee. From festive celebrations to family tea-time moments.
               </p>
 
@@ -161,39 +161,37 @@ export default async function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
                 <Link
                   href="/products"
-                  className="inline-flex items-center justify-center gap-2 bg-[#8A1538] hover:bg-[#6E1030] text-white px-7 py-3.5 rounded-2xl text-base font-semibold shadow-md hover:shadow-lg transition-all"
+                  className="inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] text-white px-7 py-3.5 rounded-2xl text-base font-semibold shadow-md hover:shadow-lg transition-all duration-200 active:scale-95"
                 >
                   Order Sweets Online
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
                 </Link>
 
                 <Link
-                  href="/products?category=gift-hampers"
-                  className="inline-flex items-center justify-center gap-2 bg-white hover:bg-[#F5EFEB] text-[#1F1B16] border border-[#E8E0D8] px-7 py-3.5 rounded-2xl text-base font-semibold transition-all"
+                  href="/gift-hampers"
+                  className="inline-flex items-center justify-center gap-2 bg-[var(--color-surface)] hover:bg-[#F5EFEB] text-[var(--color-text-primary)] border border-[var(--color-border)] px-7 py-3.5 rounded-2xl text-base font-semibold transition-all duration-200 hover:border-[var(--color-border-strong)]"
                 >
-                  <Gift className="w-4 h-4 text-[#C9A227]" />
+                  <Gift className="w-4 h-4 text-[var(--color-accent-gold)]" aria-hidden="true" />
                   Festive Gift Boxes
                 </Link>
               </div>
 
               {/* Trust Badges */}
-              <div className="pt-6 grid grid-cols-3 gap-4 border-t border-[#E8E0D8]/80 max-w-lg mx-auto lg:mx-0 text-left">
-                <div>
-                  <span className="font-serif text-xl sm:text-2xl font-bold text-[#8A1538] block">100%</span>
-                  <span className="text-xs text-[#6B6258] font-medium">Pure Desi Ghee</span>
-                </div>
-                <div>
-                  <span className="font-serif text-xl sm:text-2xl font-bold text-[#8A1538] block">Fresh</span>
-                  <span className="text-xs text-[#6B6258] font-medium">Prepared Daily</span>
-                </div>
-                <div>
-                  <span className="font-serif text-xl sm:text-2xl font-bold text-[#8A1538] block">Same-Day</span>
-                  <span className="text-xs text-[#6B6258] font-medium">Barabanki Delivery</span>
-                </div>
+              <div className="pt-6 grid grid-cols-3 gap-4 border-t border-[var(--color-border)]/80 max-w-lg mx-auto lg:mx-0 text-left">
+                {[
+                  { stat: "100%", label: "Pure Desi Ghee" },
+                  { stat: "Fresh", label: "Prepared Daily" },
+                  { stat: "Same-Day", label: "Barabanki Delivery" },
+                ].map((item) => (
+                  <div key={item.label}>
+                    <span className="font-serif text-xl sm:text-2xl font-bold text-[var(--color-primary)] block">{item.stat}</span>
+                    <span className="text-xs text-[var(--color-text-muted)] font-medium">{item.label}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Right Hero Image Collage */}
+            {/* Right Hero Image */}
             <div className="lg:col-span-5 relative">
               <div className="relative mx-auto max-w-md aspect-4/5 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                 <img
@@ -202,20 +200,20 @@ export default async function HomePage() {
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1F1B16]/80 via-transparent to-transparent flex flex-col justify-end p-6 text-white">
-                  <span className="text-xs uppercase tracking-widest text-[#C9A227] font-bold">Chef&apos;s Signature</span>
-                  <h3 className="font-serif text-2xl font-bold mt-1">Shahi Gulab Jamun & Chhena</h3>
+                  <span className="text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-bold">Chef&apos;s Signature</span>
+                  <h3 className="font-serif text-2xl font-bold mt-1">Shahi Gulab Jamun &amp; Chhena</h3>
                   <p className="text-xs text-[#E8E0D8] mt-1">Simmered in slow earthen fires and organic rose extract</p>
                 </div>
               </div>
 
               {/* Floating Award Pill */}
-              <div className="absolute -bottom-4 -left-4 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-[#E8E0D8] shadow-lg flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-[#C9A227]/20 flex items-center justify-center text-lg">
+              <div className="absolute -bottom-4 -left-4 bg-white/95 backdrop-blur-md p-3.5 rounded-2xl border border-[var(--color-border)] shadow-lg flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-[var(--color-accent-gold)]/20 flex items-center justify-center text-lg">
                   🏆
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-[#1F1B16]">Barabanki&apos;s Most Trusted</p>
-                  <p className="text-[11px] text-[#6B6258]">Over 5,000+ Celebrations Served</p>
+                  <p className="text-xs font-bold text-[var(--color-text-primary)]">Barabanki&apos;s Most Trusted</p>
+                  <p className="text-[11px] text-[var(--color-text-muted)]">Over 5,000+ Celebrations Served</p>
                 </div>
               </div>
             </div>
@@ -223,90 +221,21 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── Active Offers & Festive Banners ───────────────────────────────────── */}
-      {(banners.length > 0 || offers.length > 0) && (
-        <section className="py-8 bg-amber-50/60 border-b border-amber-200/50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-            {/* Offers Ticker / Badges */}
-            {offers.length > 0 && (
-              <div className="flex flex-wrap items-center justify-center gap-3">
-                <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#8A1538] bg-white px-3 py-1.5 rounded-full border border-amber-200 shadow-sm">
-                  <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                  Special Offers
-                </div>
-                {offers.map((offer) => (
-                  <div
-                    key={offer.id}
-                    className="flex items-center gap-2 bg-white px-4 py-1.5 rounded-full border border-[#E8E0D8] text-xs font-medium text-[#1F1B16] shadow-sm"
-                  >
-                    <Tag className="w-3 h-3 text-[#8A1538]" />
-                    <span className="font-bold text-[#8A1538]">{offer.title}</span>
-                    {offer.description && (
-                      <span className="text-[#6B6258] hidden sm:inline">— {offer.description}</span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Banners Grid */}
-            {banners.length > 0 && (
-              <div className={`grid gap-4 ${banners.length === 1 ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2"}`}>
-                {banners.map((b) => {
-                  const targetUrl =
-                    b.link_type === "CATEGORY"
-                      ? `/products?category=${b.link_value || ""}`
-                      : b.link_type === "PRODUCT"
-                      ? `/products/${b.link_value || ""}`
-                      : "/products";
-
-                  return (
-                    <Link
-                      key={b.id}
-                      href={targetUrl}
-                      className="group relative rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-[#E8E0D8] aspect-[21/9] sm:aspect-[24/9] flex items-center"
-                    >
-                      <img
-                        src={b.image_url}
-                        alt={b.title}
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-r from-[#1F1B16]/85 via-[#1F1B16]/40 to-transparent" />
-                      <div className="relative p-6 sm:p-8 text-white max-w-md">
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#C9A227] block mb-1">
-                          Festive Announcement
-                        </span>
-                        <h3 className="font-serif text-xl sm:text-2xl font-bold leading-tight drop-shadow-sm group-hover:text-amber-200 transition-colors">
-                          {b.title}
-                        </h3>
-                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-white/90 mt-3 group-hover:translate-x-1 transition-transform">
-                          Shop Now <ArrowRight className="w-3.5 h-3.5" />
-                        </span>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </section>
-      )}
-
       {/* ── Categories Section ────────────────────────────────────────────────── */}
-      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-labelledby="categories-heading">
         <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4 mb-10">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#8A1538]">Curated Mithai Range</span>
-            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1F1B16] mt-1">
+            <span className="section-eyebrow">Curated Mithai Range</span>
+            <h2 id="categories-heading" className="font-serif text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mt-1">
               Explore Our Sweet Categories
             </h2>
           </div>
           <Link
             href="/categories"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#8A1538] hover:text-[#6E1030] group"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] group"
           >
             View All Categories
-            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
           </Link>
         </div>
 
@@ -315,23 +244,23 @@ export default async function HomePage() {
             <Link
               key={cat.slug}
               href={`/products?category=${cat.slug}`}
-              className="group bg-white p-6 rounded-2xl border border-[#E8E0D8] hover:border-[#8A1538]/40 hover:shadow-md transition-all flex flex-col justify-between"
+              className="group bg-[var(--color-surface)] p-6 rounded-2xl border border-[var(--color-border)] hover:border-[var(--color-primary)]/40 hover:shadow-lg transition-all duration-200 flex flex-col justify-between"
             >
               <div>
-                <span className="text-4xl mb-4 block group-hover:scale-110 transition-transform">
+                <span className="text-4xl mb-4 block transition-transform duration-200 group-hover:scale-110" aria-hidden="true">
                   {cat.emoji}
                 </span>
-                <h3 className="font-serif text-xl font-bold text-[#1F1B16] group-hover:text-[#8A1538] transition-colors">
+                <h3 className="font-serif text-xl font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-primary)] transition-colors">
                   {cat.title}
                 </h3>
-                <p className="text-xs text-[#6B6258] mt-2 leading-relaxed">
+                <p className="text-xs text-[var(--color-text-muted)] mt-2 leading-relaxed">
                   {cat.desc}
                 </p>
               </div>
 
-              <div className="mt-6 flex items-center text-xs font-semibold text-[#8A1538]">
+              <div className="mt-6 flex items-center text-xs font-semibold text-[var(--color-primary)]">
                 <span>Browse Sweets</span>
-                <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </div>
             </Link>
           ))}
@@ -339,21 +268,21 @@ export default async function HomePage() {
       </section>
 
       {/* ── Bestseller Products ───────────────────────────────────────────────── */}
-      <section className="py-16 bg-[#F5EFEB]/50 border-y border-[#E8E0D8]">
+      <section className="py-16 bg-[#F5EFEB]/50 border-y border-[var(--color-border)]" aria-labelledby="products-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-baseline gap-4 mb-10">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-[#8A1538]">Handmade Masterpieces</span>
-              <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#1F1B16] mt-1">
-                Featured Sweets & Delicacies
+              <span className="section-eyebrow">Handmade Masterpieces</span>
+              <h2 id="products-heading" className="font-serif text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)] mt-1">
+                Featured Sweets &amp; Delicacies
               </h2>
             </div>
             <Link
               href="/products"
-              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#8A1538] hover:text-[#6E1030] group"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] group"
             >
               Browse Complete Menu
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </Link>
           </div>
 
@@ -367,14 +296,15 @@ export default async function HomePage() {
 
       {/* ── Bulk & Corporate Gifting Banner ───────────────────────────────────── */}
       <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#8A1538] text-white rounded-3xl p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-xl">
-          {/* Subtle Decorative Pattern */}
-          <div className="absolute right-0 top-0 opacity-10 text-9xl pointer-events-none select-none font-serif">
+        <div className="bg-[var(--color-primary)] text-white rounded-3xl p-8 sm:p-12 lg:p-16 relative overflow-hidden shadow-xl">
+          {/* Decorative Pattern */}
+          <div className="absolute right-0 top-0 opacity-10 text-9xl pointer-events-none select-none font-serif" aria-hidden="true">
             🪷
           </div>
+          <div className="absolute -right-20 -bottom-20 w-80 h-80 bg-white/5 rounded-full pointer-events-none" aria-hidden="true" />
 
           <div className="relative z-10 max-w-2xl space-y-4">
-            <span className="inline-block bg-[#C9A227] text-[#1F1B16] px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+            <span className="badge-gold">
               Weddings · Festivals · Corporate Gifting
             </span>
 
@@ -388,15 +318,15 @@ export default async function HomePage() {
 
             <div className="pt-4 flex flex-wrap gap-4">
               <Link
-                href="/bulk-enquiry"
-                className="bg-white hover:bg-[#F5EFEB] text-[#8A1538] px-6 py-3 rounded-xl text-sm font-bold shadow-sm transition-all"
+                href="/bulk-enquiries"
+                className="bg-[var(--color-surface)] hover:bg-[#F5EFEB] text-[var(--color-primary)] px-6 py-3 rounded-xl text-sm font-bold shadow-sm transition-all hover:shadow-md"
               >
                 Submit Bulk Enquiry
               </Link>
 
               <Link
-                href="/products?category=gift-hampers"
-                className="border border-white/60 hover:border-white text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all"
+                href="/gift-hampers"
+                className="border border-white/60 hover:border-white text-white px-6 py-3 rounded-xl text-sm font-semibold transition-all hover:bg-white/10"
               >
                 View Pre-packed Hampers
               </Link>
@@ -406,38 +336,36 @@ export default async function HomePage() {
       </section>
 
       {/* ── Brand Heritage Values ─────────────────────────────────────────────── */}
-      <section className="py-12 bg-white border-t border-[#E8E0D8]">
+      <section className="py-12 bg-[var(--color-surface)] border-t border-[var(--color-border)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div className="space-y-2">
-              <div className="w-12 h-12 rounded-full bg-[#8A1538]/10 text-[#8A1538] flex items-center justify-center mx-auto text-xl">
-                <ShieldCheck className="w-6 h-6" />
+            {[
+              {
+                icon: <ShieldCheck className="w-6 h-6" />,
+                title: "Zero Preservatives",
+                desc: "No artificial stabilizers, chemical coloring, or adulterated essences. Pure freshness always.",
+              },
+              {
+                icon: <HeartHandshake className="w-6 h-6" />,
+                title: "Local Dairy Sourcing",
+                desc: "Direct procurement of milk and khoya from trusted rural dairy cooperatives around Barabanki.",
+              },
+              {
+                icon: <Sparkles className="w-6 h-6 text-[var(--color-accent-gold)]" />,
+                title: "Guaranteed Taste",
+                desc: "Every batch sampled and supervised by veteran sweetmakers before reaching our storefront counters.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="space-y-2">
+                <div className="w-12 h-12 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] flex items-center justify-center mx-auto" aria-hidden="true">
+                  {item.icon}
+                </div>
+                <h4 className="font-serif text-lg font-bold text-[var(--color-text-primary)]">{item.title}</h4>
+                <p className="text-xs text-[var(--color-text-muted)] max-w-xs mx-auto">
+                  {item.desc}
+                </p>
               </div>
-              <h4 className="font-serif text-lg font-bold text-[#1F1B16]">Zero Preservatives</h4>
-              <p className="text-xs text-[#6B6258] max-w-xs mx-auto">
-                No artificial stabilizers, chemical coloring, or adulterated essences. Pure freshness always.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <div className="w-12 h-12 rounded-full bg-[#8A1538]/10 text-[#8A1538] flex items-center justify-center mx-auto text-xl">
-                <HeartHandshake className="w-6 h-6" />
-              </div>
-              <h4 className="font-serif text-lg font-bold text-[#1F1B16]">Local Dairy Sourcing</h4>
-              <p className="text-xs text-[#6B6258] max-w-xs mx-auto">
-                Direct procurement of milk and khoya from trusted rural dairy cooperatives around Barabanki.
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <div className="w-12 h-12 rounded-full bg-[#8A1538]/10 text-[#8A1538] flex items-center justify-center mx-auto text-xl">
-                <Sparkles className="w-6 h-6 text-[#C9A227]" />
-              </div>
-              <h4 className="font-serif text-lg font-bold text-[#1F1B16]">Guaranteed Taste</h4>
-              <p className="text-xs text-[#6B6258] max-w-xs mx-auto">
-                Every batch sampled and supervised by veteran sweetmakers before reaching our storefront counters.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>

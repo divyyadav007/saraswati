@@ -71,17 +71,15 @@ export default async function CategoriesPage() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       {/* Breadcrumb & Header */}
       <div className="mb-10 text-center sm:text-left">
-        <div className="flex items-center justify-center sm:justify-start gap-2 text-xs text-[#6B6258] mb-2 font-medium">
-          <Link href="/" className="hover:text-[#8A1538]">
-            Home
-          </Link>
-          <span>/</span>
-          <span className="text-[#1F1B16]">Categories</span>
-        </div>
-        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1F1B16]">
-          Mithai Collections & Categories
+        <nav className="flex items-center justify-center sm:justify-start gap-2 text-xs text-[var(--color-text-muted)] mb-2 font-medium" aria-label="Breadcrumb">
+          <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">Home</Link>
+          <span aria-hidden="true">/</span>
+          <span className="text-[var(--color-text-primary)]" aria-current="page">Categories</span>
+        </nav>
+        <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)]">
+          Mithai Collections &amp; Categories
         </h1>
-        <p className="text-sm sm:text-base text-[#6B6258] mt-2 max-w-2xl">
+        <p className="text-sm sm:text-base text-[var(--color-text-muted)] mt-2 max-w-2xl">
           Browse our curated range of authentic Indian sweets, dry fruit delicacies, and festive hampers.
         </p>
       </div>
@@ -92,43 +90,45 @@ export default async function CategoriesPage() {
           <Link
             key={cat.id}
             href={`/products?category=${cat.slug}`}
-            className="group bg-white rounded-3xl border border-[#E8E0D8] overflow-hidden hover:border-[#8A1538]/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            className="group bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] overflow-hidden hover:border-[var(--color-primary)]/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            aria-label={`Browse ${cat.name}`}
           >
             <div>
-              <div className="relative aspect-16/10 bg-[#F5EFEB] overflow-hidden">
+              <div className="relative aspect-video bg-[var(--color-surface-raised)] overflow-hidden">
                 {cat.image_url ? (
                   <img
                     src={cat.image_url}
                     alt={cat.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center text-4xl bg-[#F5EFEB]">
+                  <div className="w-full h-full flex items-center justify-center text-4xl" aria-hidden="true">
                     🪷
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#1F1B16]/60 via-transparent to-transparent flex items-end p-5">
-                  <span className="bg-[#8A1538] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                  <span className="bg-[var(--color-primary)] text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
                     Collection
                   </span>
                 </div>
               </div>
 
               <div className="p-6">
-                <h2 className="font-serif text-2xl font-bold text-[#1F1B16] group-hover:text-[#8A1538] transition-colors">
+                <h2 className="font-serif text-2xl font-bold text-[var(--color-text-primary)] group-hover:text-[var(--color-primary)] transition-colors">
                   {cat.name}
                 </h2>
                 {cat.description && (
-                  <p className="text-xs sm:text-sm text-[#6B6258] mt-2 line-clamp-3 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-[var(--color-text-muted)] mt-2 line-clamp-3 leading-relaxed">
                     {cat.description}
                   </p>
                 )}
               </div>
             </div>
 
-            <div className="p-6 pt-0 border-t border-[#F5EFEB] mt-4 flex items-center justify-between text-sm font-semibold text-[#8A1538]">
+            <div className="p-6 pt-0 border-t border-[var(--color-surface-raised)] mt-4 flex items-center justify-between text-sm font-semibold text-[var(--color-primary)]">
               <span>Explore Sweets</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </div>
           </Link>
         ))}

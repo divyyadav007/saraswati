@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-stone-100 p-4 font-sans relative overflow-hidden">
       {/* Decorative background elements */}
-      <div className="absolute top-0 left-0 w-full h-1/2 bg-[#8A1538] skew-y-[-5deg] transform origin-top-left -z-10 shadow-xl"></div>
+      <div className="absolute top-0 left-0 w-full h-1/2 bg-[var(--color-primary)] skew-y-[-5deg] transform origin-top-left -z-10 shadow-xl"></div>
       
       <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl p-8 relative z-10 border border-stone-200">
         <div className="text-center mb-10">
@@ -69,7 +69,7 @@ export default function AdminLoginPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#8A1538] focus:border-[#8A1538] transition-colors outline-none"
+              className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] transition-colors outline-none"
               placeholder="admin@saraswatisweets.com"
               required
             />
@@ -81,7 +81,7 @@ export default function AdminLoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[#8A1538] focus:border-[#8A1538] transition-colors outline-none"
+              className="w-full px-4 py-3 rounded-lg border border-stone-300 focus:ring-2 focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] transition-colors outline-none"
               placeholder="••••••••"
               required
             />
@@ -90,7 +90,7 @@ export default function AdminLoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#8A1538] hover:bg-maroon-800 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] shadow-md disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
+            className="w-full bg-[var(--color-primary)] hover:bg-maroon-800 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] shadow-md disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none"
           >
             {loading ? "Authenticating..." : "Sign In to Dashboard"}
           </button>
@@ -111,3 +111,4 @@ export default function AdminLoginPage() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { deliveryPartnerApi, DeliveryPartnerModel } from "@/lib/api-client";
@@ -204,7 +204,7 @@ export default function AdminDeliveryPartnersPage() {
         </div>
         <button
           onClick={openCreateModal}
-          className="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[#8A1538] text-white text-xs font-bold hover:bg-[#70102D] shadow-sm transition-all"
+          className="inline-flex items-center justify-center px-4 py-2.5 rounded-xl bg-[var(--color-primary)] text-white text-xs font-bold hover:bg-[#70102D] shadow-sm transition-all"
         >
           + Add Delivery Partner
         </button>
@@ -283,7 +283,7 @@ export default function AdminDeliveryPartnersPage() {
                       </div>
                     </td>
                     <td className="py-4 px-6 font-mono text-stone-700">
-                      <a href={`tel:${p.phone}`} className="hover:text-[#8A1538] hover:underline">
+                      <a href={`tel:${p.phone}`} className="hover:text-[var(--color-primary)] hover:underline">
                         {p.phone}
                       </a>
                     </td>
@@ -367,7 +367,7 @@ export default function AdminDeliveryPartnersPage() {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   placeholder="e.g. Raju Verma"
-                  className="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#8A1538]"
+                  className="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]"
                 />
               </div>
 
@@ -381,7 +381,7 @@ export default function AdminDeliveryPartnersPage() {
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   placeholder="+91 94150 99887"
-                  className="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#8A1538]"
+                  className="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]"
                 />
               </div>
 
@@ -393,7 +393,7 @@ export default function AdminDeliveryPartnersPage() {
                   <select
                     value={formData.vehicle_type}
                     onChange={(e) => setFormData({ ...formData, vehicle_type: e.target.value })}
-                    className="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#8A1538] bg-white"
+                    className="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)] bg-white"
                   >
                     <option value="Scooter">Scooter</option>
                     <option value="Motorcycle">Motorcycle</option>
@@ -413,7 +413,7 @@ export default function AdminDeliveryPartnersPage() {
                       setFormData({ ...formData, vehicle_number: e.target.value })
                     }
                     placeholder="UP 41 AB 1234"
-                    className="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#8A1538]"
+                    className="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]"
                   />
                 </div>
               </div>
@@ -427,7 +427,7 @@ export default function AdminDeliveryPartnersPage() {
                   value={formData.notes}
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   placeholder="e.g. Preferred delivery zones, shift timing"
-                  className="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#8A1538]"
+                  className="w-full px-3 py-2 border border-stone-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]"
                 />
               </div>
 
@@ -442,7 +442,7 @@ export default function AdminDeliveryPartnersPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-5 py-2 rounded-lg bg-[#8A1538] text-white font-bold hover:bg-[#70102D] disabled:opacity-50"
+                  className="px-5 py-2 rounded-lg bg-[var(--color-primary)] text-white font-bold hover:bg-[#70102D] disabled:opacity-50"
                 >
                   {saving ? "Saving..." : editingPartner ? "Update Partner" : "Create Partner"}
                 </button>
@@ -454,3 +454,4 @@ export default function AdminDeliveryPartnersPage() {
     </div>
   );
 }
+

@@ -145,51 +145,53 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Header & Title */}
-      <div className="flex flex-col md:flex-row justify-between items-baseline gap-4 mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-8">
         <div>
-          <div className="flex items-center gap-2 text-xs text-[#6B6258] mb-2 font-medium">
-            <Link href="/" className="hover:text-[#8A1538]">
-              Home
-            </Link>
-            <span>/</span>
-            <span className="text-[#1F1B16]">All Sweets</span>
+          <nav className="flex items-center gap-2 text-xs text-[var(--color-text-muted)] mb-2 font-medium" aria-label="Breadcrumb">
+            <Link href="/" className="hover:text-[var(--color-primary)] transition-colors">Home</Link>
+            <span aria-hidden="true">/</span>
+            <span className="text-[var(--color-text-primary)]" aria-current={!currentCategory ? "page" : undefined}>All Sweets</span>
             {currentCategory && (
               <>
-                <span>/</span>
-                <span className="text-[#8A1538] font-semibold capitalize">{currentCategory}</span>
+                <span aria-hidden="true">/</span>
+                <span className="text-[var(--color-primary)] font-semibold capitalize" aria-current="page">{currentCategory.replace(/-/g, " ")}</span>
               </>
             )}
-          </div>
-          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[#1F1B16]">
-            {currentCategory ? `Sweets: ${currentCategory.replace("-", " ")}` : "All Handcrafted Sweets"}
+          </nav>
+          <h1 className="font-serif text-3xl sm:text-4xl font-bold text-[var(--color-text-primary)]">
+            {currentCategory ? `Sweets: ${currentCategory.replace(/-/g, " ")}` : "All Handcrafted Sweets"}
           </h1>
-          <p className="text-sm text-[#6B6258] mt-1">
+          <p className="text-sm text-[var(--color-text-muted)] mt-1">
             Showing {products.length} of {totalItems} varieties available today
           </p>
         </div>
 
-        {/* Search Bar in Header */}
-        <form method="GET" action="/products" className="w-full md:w-80 relative">
+        {/* Search Bar */}
+        <form method="GET" action="/products" className="w-full md:w-80 relative shrink-0" role="search">
           {currentCategory && <input type="hidden" name="category" value={currentCategory} />}
+          <label htmlFor="products-search" className="sr-only">Search mithai</label>
           <input
+            id="products-search"
             type="search"
             name="q"
             defaultValue={currentQuery || ""}
             placeholder="Search mithai..."
-            className="w-full bg-white border border-[#E8E0D8] rounded-full py-2 pl-10 pr-4 text-sm text-[#1F1B16] outline-none focus:border-[#8A1538]"
+            className="w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-full py-2.5 pl-10 pr-4 text-sm text-[var(--color-text-primary)] outline-none focus:border-[var(--color-primary)] focus:ring-2 focus:ring-[var(--color-primary)]/15 transition-all"
           />
-          <Search className="w-4 h-4 text-[#6B6258] absolute left-3.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-4 h-4 text-[var(--color-text-muted)] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true" />
         </form>
       </div>
 
       {/* Filter and Sort Toolbar */}
-      <div className="bg-white p-4 rounded-2xl border border-[#E8E0D8] mb-8 flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-[var(--color-surface)] p-4 rounded-2xl border border-[var(--color-border)] mb-8 flex flex-wrap items-center justify-between gap-4 shadow-sm">
         {/* Category Pills */}
-        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
+        <div className="flex flex-wrap items-center gap-2 text-xs font-semibold" role="group" aria-label="Filter by category">
           <Link
             href={currentQuery ? `/products?q=${encodeURIComponent(currentQuery)}` : "/products"}
-            className={`px-3 py-1.5 rounded-full transition-all ${
-              !currentCategory ? "bg-[#8A1538] text-white shadow-xs" : "bg-[#F5EFEB] text-[#6B6258] hover:bg-[#E8E0D8]"
+            className={`px-3.5 py-1.5 rounded-full transition-all ${
+              !currentCategory
+                ? "bg-[var(--color-primary)] text-white shadow-sm"
+                : "bg-[var(--color-surface-raised)] text-[var(--color-text-muted)] hover:bg-[var(--color-border)] hover:text-[var(--color-text-primary)]"
             }`}
           >
             All Sweets
@@ -198,10 +200,10 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
             <Link
               key={c.id}
               href={`/products?category=${c.slug}${currentQuery ? `&q=${encodeURIComponent(currentQuery)}` : ""}`}
-              className={`px-3 py-1.5 rounded-full transition-all ${
+              className={`px-3.5 py-1.5 rounded-full transition-all ${
                 currentCategory === c.slug
-                  ? "bg-[#8A1538] text-white shadow-xs"
-                  : "bg-[#F5EFEB] text-[#6B6258] hover:bg-[#E8E0D8]"
+                  ? "bg-[var(--color-primary)] text-white shadow-sm"
+                  : "bg-[var(--color-surface-raised)] text-[var(--color-text-muted)] hover:bg-[var(--color-border)] hover:text-[var(--color-text-primary)]"
               }`}
             >
               {c.name}
@@ -213,11 +215,13 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
         <form method="GET" action="/products" className="flex items-center gap-2">
           {currentCategory && <input type="hidden" name="category" value={currentCategory} />}
           {currentQuery && <input type="hidden" name="q" value={currentQuery} />}
-          <SlidersHorizontal className="w-4 h-4 text-[#6B6258]" />
+          <label htmlFor="sort-select" className="sr-only">Sort products</label>
+          <SlidersHorizontal className="w-4 h-4 text-[var(--color-text-muted)]" aria-hidden="true" />
           <select
+            id="sort-select"
             name="sort"
             defaultValue={currentSort || ""}
-            className="bg-[#F5EFEB] border border-[#E8E0D8] text-xs font-semibold text-[#1F1B16] rounded-xl px-3 py-1.5 outline-none focus:border-[#8A1538]"
+            className="bg-[var(--color-surface-raised)] border border-[var(--color-border)] text-xs font-semibold text-[var(--color-text-primary)] rounded-xl px-3 py-1.5 outline-none focus:border-[var(--color-primary)] cursor-pointer"
           >
             <option value="">Featured First</option>
             <option value="price_asc">Price: Low to High</option>
@@ -229,26 +233,26 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
       {/* Product Grid */}
       {products.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       ) : (
         /* Empty State */
-        <div className="bg-white rounded-3xl border border-[#E8E0D8] p-12 text-center max-w-md mx-auto my-12">
-          <div className="w-16 h-16 rounded-full bg-[#F5EFEB] flex items-center justify-center mx-auto text-3xl mb-4">
+        <div className="bg-[var(--color-surface)] rounded-3xl border border-[var(--color-border)] p-12 text-center max-w-md mx-auto my-12 shadow-sm">
+          <div className="w-16 h-16 rounded-full bg-[var(--color-surface-raised)] flex items-center justify-center mx-auto text-3xl mb-4" aria-hidden="true">
             🔍
           </div>
-          <h3 className="font-serif text-2xl font-bold text-[#1F1B16]">No Sweets Found</h3>
-          <p className="text-sm text-[#6B6258] mt-2 mb-6">
-            We couldn&apos;t find any sweets matching your criteria. Try adjusting your search query or exploring our complete menu.
+          <h3 className="font-serif text-2xl font-bold text-[var(--color-text-primary)]">No Sweets Found</h3>
+          <p className="text-sm text-[var(--color-text-muted)] mt-2 mb-6">
+            We couldn&apos;t find any sweets matching your criteria. Try adjusting your search or exploring our complete menu.
           </p>
           <Link
             href="/products"
-            className="inline-flex items-center gap-2 bg-[#8A1538] text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-xs hover:bg-[#6E1030] transition-colors"
+            className="inline-flex items-center gap-2 bg-[var(--color-primary)] text-white px-5 py-2.5 rounded-xl text-xs font-bold hover:bg-[var(--color-primary-hover)] transition-colors shadow-sm"
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-4 h-4" aria-hidden="true" />
             Reset All Filters
           </Link>
         </div>
@@ -256,27 +260,35 @@ export default async function ProductsPage({ searchParams }: ProductsPageProps) 
 
       {/* Pagination Controls */}
       {totalPages > 1 && (
-        <div className="mt-12 flex justify-center items-center gap-3">
+        <nav className="mt-12 flex justify-center items-center gap-3" aria-label="Page navigation">
           <Link
             href={`/products?page=${Math.max(1, currentPage - 1)}${currentCategory ? `&category=${currentCategory}` : ""}${currentQuery ? `&q=${currentQuery}` : ""}`}
-            className={`px-4 py-2 text-xs font-semibold rounded-xl border border-[#E8E0D8] ${
-              currentPage <= 1 ? "pointer-events-none opacity-40" : "bg-white hover:bg-[#F5EFEB]"
+            className={`px-4 py-2 text-xs font-semibold rounded-xl border border-[var(--color-border)] transition-colors ${
+              currentPage <= 1
+                ? "pointer-events-none opacity-40 bg-[var(--color-surface)]"
+                : "bg-[var(--color-surface)] hover:bg-[var(--color-surface-raised)]"
             }`}
+            aria-label="Previous page"
+            aria-disabled={currentPage <= 1}
           >
             Previous
           </Link>
-          <span className="text-xs text-[#6B6258] font-medium">
+          <span className="text-xs text-[var(--color-text-muted)] font-medium px-2">
             Page {currentPage} of {totalPages}
           </span>
           <Link
             href={`/products?page=${Math.min(totalPages, currentPage + 1)}${currentCategory ? `&category=${currentCategory}` : ""}${currentQuery ? `&q=${currentQuery}` : ""}`}
-            className={`px-4 py-2 text-xs font-semibold rounded-xl border border-[#E8E0D8] ${
-              currentPage >= totalPages ? "pointer-events-none opacity-40" : "bg-white hover:bg-[#F5EFEB]"
+            className={`px-4 py-2 text-xs font-semibold rounded-xl border border-[var(--color-border)] transition-colors ${
+              currentPage >= totalPages
+                ? "pointer-events-none opacity-40 bg-[var(--color-surface)]"
+                : "bg-[var(--color-surface)] hover:bg-[var(--color-surface-raised)]"
             }`}
+            aria-label="Next page"
+            aria-disabled={currentPage >= totalPages}
           >
             Next
           </Link>
-        </div>
+        </nav>
       )}
     </div>
   );

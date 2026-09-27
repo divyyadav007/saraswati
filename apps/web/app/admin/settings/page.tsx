@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { adminStoreSettingsApi, StoreSettingModel } from "@/lib/api-client";
@@ -137,7 +137,7 @@ export default function AdminSettingsPage() {
                 required
                 value={storeName}
                 onChange={(e) => setStoreName(e.target.value)}
-                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
             </div>
             <div>
@@ -147,7 +147,7 @@ export default function AdminSettingsPage() {
                 required
                 value={storePhone}
                 onChange={(e) => setStorePhone(e.target.value)}
-                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
             </div>
             <div>
@@ -157,7 +157,7 @@ export default function AdminSettingsPage() {
                 required
                 value={storeEmail}
                 onChange={(e) => setStoreEmail(e.target.value)}
-                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
             </div>
             <div>
@@ -167,7 +167,7 @@ export default function AdminSettingsPage() {
                 required
                 value={addressText}
                 onChange={(e) => setAddressText(e.target.value)}
-                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
             </div>
           </div>
@@ -189,7 +189,7 @@ export default function AdminSettingsPage() {
                 min="0"
                 value={deliveryCharge}
                 onChange={(e) => setDeliveryCharge(e.target.value)}
-                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
               <span className="text-[11px] text-stone-400">Default charge applied per order</span>
             </div>
@@ -204,7 +204,7 @@ export default function AdminSettingsPage() {
                 placeholder="Leave blank for none"
                 value={freeDeliveryAbove}
                 onChange={(e) => setFreeDeliveryAbove(e.target.value)}
-                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+                className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
               />
               <span className="text-[11px] text-stone-400">Orders exceeding this total enjoy free shipping</span>
             </div>
@@ -218,7 +218,7 @@ export default function AdminSettingsPage() {
               value={pincodesText}
               onChange={(e) => setPincodesText(e.target.value)}
               placeholder="225001, 225002, 225003"
-              className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+              className="w-full px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             />
             <span className="text-[11px] text-stone-400">
               Only delivery addresses matching these pincodes will be allowed to place orders
@@ -237,7 +237,7 @@ export default function AdminSettingsPage() {
               id="codEnabled"
               checked={codEnabled}
               onChange={(e) => setCodEnabled(e.target.checked)}
-              className="h-4 w-4 rounded text-[#8A1538] focus:ring-[#8A1538]"
+              className="h-4 w-4 rounded text-[var(--color-primary)] focus:ring-[var(--color-primary)]"
             />
             <label htmlFor="codEnabled" className="text-sm font-medium text-stone-900 cursor-pointer">
               Enable Cash on Delivery (COD) Checkout
@@ -253,7 +253,7 @@ export default function AdminSettingsPage() {
               min="0"
               value={codLimit}
               onChange={(e) => setCodLimit(e.target.value)}
-              className="w-full max-w-xs px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+              className="w-full max-w-xs px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             />
             <span className="text-[11px] text-stone-400 block mt-1">
               Carts exceeding this amount must pay online via Razorpay/UPI
@@ -266,7 +266,7 @@ export default function AdminSettingsPage() {
           <button
             type="submit"
             disabled={saving}
-            className="px-6 py-2.5 bg-[#8A1538] hover:bg-[#70102D] text-white text-sm font-medium rounded-lg shadow-sm transition-colors disabled:opacity-50"
+            className="px-6 py-2.5 bg-[var(--color-primary)] hover:bg-[#70102D] text-white text-sm font-medium rounded-lg shadow-sm transition-colors disabled:opacity-50"
           >
             {saving ? "Saving Changes..." : "Save Store Settings"}
           </button>
@@ -275,3 +275,4 @@ export default function AdminSettingsPage() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -79,7 +79,7 @@ export default function BulkEnquiriesPage() {
       <div className="max-w-4xl mx-auto">
         {/* Header Hero */}
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#8A1538]/10 text-[#8A1538] text-xs font-semibold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)] text-xs font-semibold uppercase tracking-wider mb-3">
             <Sparkles className="w-3.5 h-3.5" />
             Corporate & Wedding Sweet Concierge
           </div>
@@ -94,8 +94,8 @@ export default function BulkEnquiriesPage() {
 
         {/* Value Proposition Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
-          <div className="bg-white p-5 rounded-2xl border border-stone-200/80 shadow-xs flex items-start gap-3.5">
-            <div className="w-10 h-10 rounded-xl bg-rose-50 text-[#8A1538] flex items-center justify-center shrink-0">
+          <div className="bg-[var(--color-surface)] p-5 rounded-2xl border border-stone-200/80 shadow-xs flex items-start gap-3.5">
+            <div className="w-10 h-10 rounded-xl bg-rose-50 text-[var(--color-primary)] flex items-center justify-center shrink-0">
               <Building2 className="w-5 h-5" />
             </div>
             <div>
@@ -106,7 +106,7 @@ export default function BulkEnquiriesPage() {
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-stone-200/80 shadow-xs flex items-start gap-3.5">
+          <div className="bg-[var(--color-surface)] p-5 rounded-2xl border border-stone-200/80 shadow-xs flex items-start gap-3.5">
             <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center shrink-0">
               <Heart className="w-5 h-5" />
             </div>
@@ -118,7 +118,7 @@ export default function BulkEnquiriesPage() {
             </div>
           </div>
 
-          <div className="bg-white p-5 rounded-2xl border border-stone-200/80 shadow-xs flex items-start gap-3.5">
+          <div className="bg-[var(--color-surface)] p-5 rounded-2xl border border-stone-200/80 shadow-xs flex items-start gap-3.5">
             <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0">
               <Clock className="w-5 h-5" />
             </div>
@@ -133,7 +133,7 @@ export default function BulkEnquiriesPage() {
 
         {/* Submission Confirmation OR Form */}
         {submitted ? (
-          <div className="bg-white rounded-3xl border border-stone-200 p-8 sm:p-12 text-center shadow-md max-w-2xl mx-auto">
+          <div className="bg-[var(--color-surface)] rounded-3xl border border-stone-200 p-8 sm:p-12 text-center shadow-md max-w-2xl mx-auto">
             <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-6">
               <CheckCircle2 className="w-10 h-10" />
             </div>
@@ -172,14 +172,14 @@ export default function BulkEnquiriesPage() {
               </button>
               <Link
                 href="/products"
-                className="px-5 py-2.5 rounded-full bg-[#8A1538] hover:bg-[#70102D] text-white text-sm font-semibold shadow-sm"
+                className="px-5 py-2.5 rounded-full bg-[var(--color-primary)] hover:bg-[#70102D] text-white text-sm font-semibold shadow-sm"
               >
                 Explore Full Catalog
               </Link>
             </div>
           </div>
         ) : (
-          <div className="bg-white rounded-3xl border border-stone-200/90 shadow-md p-6 sm:p-10">
+          <div className="bg-[var(--color-surface)] rounded-3xl border border-stone-200/90 shadow-md p-6 sm:p-10">
             {error && (
               <div className="mb-6 p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm font-medium">
                 {error}
@@ -200,7 +200,7 @@ export default function BulkEnquiriesPage() {
                       placeholder="e.g. Vikramaditya Singhania"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] focus:ring-1 focus:ring-[#8A1538] outline-none transition-all"
+                      className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-[var(--color-surface)] focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -216,7 +216,7 @@ export default function BulkEnquiriesPage() {
                       placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] focus:ring-1 focus:ring-[#8A1538] outline-none transition-all"
+                      className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-[var(--color-surface)] focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -233,7 +233,7 @@ export default function BulkEnquiriesPage() {
                     placeholder="vikram@corp.com"
                     value={formData.email || ""}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] focus:ring-1 focus:ring-[#8A1538] outline-none transition-all"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-[var(--color-surface)] focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all"
                   />
                 </div>
 
@@ -244,7 +244,7 @@ export default function BulkEnquiriesPage() {
                   <select
                     value={formData.enquiry_type}
                     onChange={(e) => setFormData({ ...formData, enquiry_type: e.target.value })}
-                    className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] focus:ring-1 focus:ring-[#8A1538] outline-none transition-all"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-[var(--color-surface)] focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all"
                   >
                     <option value="CORPORATE">Corporate Gifting & Diwali</option>
                     <option value="WEDDING">Wedding Celebration & Return Gifts</option>
@@ -264,7 +264,7 @@ export default function BulkEnquiriesPage() {
                     type="date"
                     value={formData.event_date || ""}
                     onChange={(e) => setFormData({ ...formData, event_date: e.target.value })}
-                    className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] focus:ring-1 focus:ring-[#8A1538] outline-none transition-all"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-[var(--color-surface)] focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all"
                   />
                 </div>
 
@@ -277,7 +277,7 @@ export default function BulkEnquiriesPage() {
                     placeholder="e.g. 150 boxes or 300 guests"
                     value={formData.estimated_quantity || ""}
                     onChange={(e) => setFormData({ ...formData, estimated_quantity: e.target.value })}
-                    className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] focus:ring-1 focus:ring-[#8A1538] outline-none transition-all"
+                    className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-[var(--color-surface)] focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all"
                   />
                 </div>
               </div>
@@ -292,7 +292,7 @@ export default function BulkEnquiriesPage() {
                   placeholder="e.g. Kaju Katli, Motichoor Ladoo, Besan Ladoo, Assorted Dry Fruit Hampers"
                   value={formData.items_of_interest || ""}
                   onChange={(e) => setFormData({ ...formData, items_of_interest: e.target.value })}
-                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] focus:ring-1 focus:ring-[#8A1538] outline-none transition-all"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-[var(--color-surface)] focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all"
                 />
               </div>
 
@@ -306,7 +306,7 @@ export default function BulkEnquiriesPage() {
                   placeholder="Tell us about custom packaging (ribbon color, company logo, personalized greeting card), budget per box, or delivery logistics..."
                   value={formData.message || ""}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] focus:ring-1 focus:ring-[#8A1538] outline-none transition-all"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-4 py-2.5 text-sm text-stone-900 focus:bg-[var(--color-surface)] focus:border-[var(--color-primary)] focus:ring-1 focus:ring-[var(--color-primary)] outline-none transition-all"
                 />
               </div>
 
@@ -318,7 +318,7 @@ export default function BulkEnquiriesPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#8A1538] hover:bg-[#70102D] text-white px-8 py-3 rounded-full font-semibold text-sm transition-all shadow-md active:scale-98 disabled:opacity-50"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[var(--color-primary)] hover:bg-[#70102D] text-white px-8 py-3 rounded-full font-semibold text-sm transition-all shadow-md active:scale-98 disabled:opacity-50"
                 >
                   {loading ? (
                     <span>Submitting Enquiry...</span>
@@ -337,3 +337,4 @@ export default function BulkEnquiriesPage() {
     </div>
   );
 }
+

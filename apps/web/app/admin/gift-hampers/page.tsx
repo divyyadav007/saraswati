@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import {
@@ -212,7 +212,7 @@ export default function AdminGiftHampersPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-stone-200 shadow-xs">
         <div>
           <h1 className="font-serif text-2xl md:text-3xl font-bold text-stone-900 flex items-center gap-2">
-            <Gift className="w-7 h-7 text-[#8A1538]" />
+            <Gift className="w-7 h-7 text-[var(--color-primary)]" />
             Gift Hampers Management
           </h1>
           <p className="text-stone-500 text-sm mt-1">
@@ -222,7 +222,7 @@ export default function AdminGiftHampersPage() {
 
         <button
           onClick={() => setShowCreateModal(true)}
-          className="inline-flex items-center gap-2 bg-[#8A1538] hover:bg-[#70102D] text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-sm shrink-0"
+          className="inline-flex items-center gap-2 bg-[var(--color-primary)] hover:bg-[#70102D] text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all shadow-sm shrink-0"
         >
           <Plus className="w-4 h-4" />
           Create Gift Hamper
@@ -320,7 +320,7 @@ export default function AdminGiftHampersPage() {
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4 backdrop-blur-xs">
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl border border-stone-200">
             <h3 className="font-serif text-xl font-bold text-stone-900 mb-4 flex items-center gap-2">
-              <Gift className="w-5 h-5 text-[#8A1538]" />
+              <Gift className="w-5 h-5 text-[var(--color-primary)]" />
               New Festive Gift Hamper
             </h3>
 
@@ -335,7 +335,7 @@ export default function AdminGiftHampersPage() {
                   placeholder="e.g. Royal Diwali Mithai Trunk"
                   value={newHamper.name}
                   onChange={(e) => setNewHamper({ ...newHamper, name: e.target.value })}
-                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] outline-none"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2 text-sm text-stone-900 focus:bg-white focus:border-[var(--color-primary)] outline-none"
                 />
               </div>
 
@@ -350,7 +350,7 @@ export default function AdminGiftHampersPage() {
                   step={0.01}
                   value={newHamper.hamper_price}
                   onChange={(e) => setNewHamper({ ...newHamper, hamper_price: parseFloat(e.target.value) || 0 })}
-                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] outline-none"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2 text-sm text-stone-900 focus:bg-white focus:border-[var(--color-primary)] outline-none"
                 />
               </div>
 
@@ -363,7 +363,7 @@ export default function AdminGiftHampersPage() {
                   placeholder="Describe the packaging, auspicious significance, and sweets included..."
                   value={newHamper.description}
                   onChange={(e) => setNewHamper({ ...newHamper, description: e.target.value })}
-                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2 text-sm text-stone-900 focus:bg-white focus:border-[#8A1538] outline-none"
+                  className="w-full bg-stone-50 border border-stone-200 rounded-xl px-3.5 py-2 text-sm text-stone-900 focus:bg-white focus:border-[var(--color-primary)] outline-none"
                 />
               </div>
 
@@ -373,7 +373,7 @@ export default function AdminGiftHampersPage() {
                   id="create_is_active"
                   checked={newHamper.is_active}
                   onChange={(e) => setNewHamper({ ...newHamper, is_active: e.target.checked })}
-                  className="w-4 h-4 rounded text-[#8A1538] focus:ring-[#8A1538]"
+                  className="w-4 h-4 rounded text-[var(--color-primary)] focus:ring-[var(--color-primary)]"
                 />
                 <label htmlFor="create_is_active" className="text-sm font-medium text-stone-700 cursor-pointer">
                   Publish to Storefront immediately (Active)
@@ -391,7 +391,7 @@ export default function AdminGiftHampersPage() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="px-5 py-2 bg-[#8A1538] hover:bg-[#70102D] text-white text-sm font-semibold rounded-xl shadow-xs"
+                  className="px-5 py-2 bg-[var(--color-primary)] hover:bg-[#70102D] text-white text-sm font-semibold rounded-xl shadow-xs"
                 >
                   {saving ? "Creating..." : "Create Hamper"}
                 </button>
@@ -410,7 +410,7 @@ export default function AdminGiftHampersPage() {
                 <h2 className="font-serif text-2xl font-bold text-stone-900">
                   {selectedHamper.name}
                 </h2>
-                <span className="text-sm font-semibold text-[#8A1538]">
+                <span className="text-sm font-semibold text-[var(--color-primary)]">
                   Live Storefront Price: ₹{selectedHamper.hamper_price.toFixed(2)}
                 </span>
               </div>
@@ -425,7 +425,7 @@ export default function AdminGiftHampersPage() {
             {/* Section 1: Constituent Sweets ("What's inside") */}
             <div className="mb-8">
               <h3 className="font-serif font-bold text-lg text-stone-900 mb-3 flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#C9A227]" />
+                <Sparkles className="w-4 h-4 text-[var(--color-accent-gold)]" />
                 Constituent Sweet Delicacies ({selectedHamper.items?.length || 0})
               </h3>
 
@@ -515,7 +515,7 @@ export default function AdminGiftHampersPage() {
                       <button
                         type="submit"
                         disabled={saving || !newItem.product_variant_id}
-                        className="flex-1 bg-[#8A1538] hover:bg-[#70102D] text-white rounded-lg text-xs font-semibold disabled:opacity-50"
+                        className="flex-1 bg-[var(--color-primary)] hover:bg-[#70102D] text-white rounded-lg text-xs font-semibold disabled:opacity-50"
                       >
                         Add Sweet
                       </button>
@@ -528,7 +528,7 @@ export default function AdminGiftHampersPage() {
             {/* Section 2: Hamper Images */}
             <div>
               <h3 className="font-serif font-bold text-lg text-stone-900 mb-3 flex items-center gap-2">
-                <ImageIcon className="w-4 h-4 text-[#8A1538]" />
+                <ImageIcon className="w-4 h-4 text-[var(--color-primary)]" />
                 Hamper Images ({selectedHamper.images?.length || 0})
               </h3>
 
@@ -540,7 +540,7 @@ export default function AdminGiftHampersPage() {
                   >
                     <img src={img.url} alt="Hamper" className="w-full h-full object-cover" />
                     {img.is_primary && (
-                      <span className="absolute bottom-1 left-1 bg-[#8A1538] text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
+                      <span className="absolute bottom-1 left-1 bg-[var(--color-primary)] text-white text-[9px] font-bold px-1.5 py-0.5 rounded">
                         Primary
                       </span>
                     )}
@@ -567,7 +567,7 @@ export default function AdminGiftHampersPage() {
                     id="img_primary"
                     checked={newImage.is_primary}
                     onChange={(e) => setNewImage({ ...newImage, is_primary: e.target.checked })}
-                    className="w-4 h-4 rounded text-[#8A1538]"
+                    className="w-4 h-4 rounded text-[var(--color-primary)]"
                   />
                   <label htmlFor="img_primary" className="text-xs text-stone-700">Set as Primary</label>
                 </div>
@@ -586,3 +586,4 @@ export default function AdminGiftHampersPage() {
     </div>
   );
 }
+

@@ -6,22 +6,26 @@
 
 /* ── CSS Custom Properties (Design Tokens) ───────────────────────────────── */
 :root {
-  /* Backgrounds */
-  --color-background: #fbf7f2;
+  /* Backgrounds - Warmer cream for traditional feel */
+  --color-background: #fff8e7;
   --color-surface: #ffffff;
+  --color-surface-raised: #fdf3e1;
 
-  /* Brand */
-  --color-primary: #8a1538;
-  --color-primary-hover: #6e1030;
+  /* Brand - Rich traditional festive red */
+  --color-primary: #a81c1c;
+  --color-primary-hover: #8a1313;
+  --color-primary-light: rgba(168, 28, 28, 0.08);
   --color-primary-foreground: #ffffff;
 
-  /* Accent */
-  --color-accent-gold: #c9a227;
+  /* Accent - Bright festive gold */
+  --color-accent-gold: #d4af37;
+  --color-accent-gold-light: rgba(212, 175, 55, 0.15);
   --color-accent-gold-foreground: #1f1b16;
 
   /* Text */
   --color-text-primary: #1f1b16;
   --color-text-muted: #6b6258;
+  --color-text-subtle: #9e948a;
   --color-text-inverse: #ffffff;
 
   /* Semantic */
@@ -40,6 +44,20 @@
   --color-disabled: #c4b8ad;
   --color-disabled-foreground: #9e948a;
 
+  /* Shadows (warm-tinted per brand palette) */
+  --shadow-sm: 0 1px 3px 0 rgba(31, 27, 22, 0.07);
+  --shadow-md: 0 4px 8px -2px rgba(31, 27, 22, 0.10), 0 2px 4px -2px rgba(31, 27, 22, 0.06);
+  --shadow-lg: 0 12px 20px -4px rgba(31, 27, 22, 0.12), 0 4px 8px -4px rgba(31, 27, 22, 0.06);
+  --shadow-xl: 0 20px 40px -8px rgba(31, 27, 22, 0.15), 0 8px 16px -4px rgba(31, 27, 22, 0.08);
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
   /* Typography */
   --font-heading: "Playfair Display", Georgia, serif;
   --font-body: "Inter", system-ui, sans-serif;
@@ -51,20 +69,36 @@
 
 /* ── Tailwind Theme Extension ─────────────────────────────────────────────── */
 @theme inline {
+  /* Colors — all routed through CSS vars so a single :root change propagates everywhere */
   --color-background: var(--color-background);
   --color-surface: var(--color-surface);
+  --color-surface-raised: var(--color-surface-raised);
   --color-primary: var(--color-primary);
   --color-primary-hover: var(--color-primary-hover);
+  --color-primary-light: var(--color-primary-light);
   --color-primary-foreground: var(--color-primary-foreground);
   --color-accent-gold: var(--color-accent-gold);
+  --color-accent-gold-light: var(--color-accent-gold-light);
+  --color-accent-gold-foreground: var(--color-accent-gold-foreground);
   --color-text-primary: var(--color-text-primary);
   --color-text-muted: var(--color-text-muted);
+  --color-text-subtle: var(--color-text-subtle);
+  --color-text-inverse: var(--color-text-inverse);
   --color-success: var(--color-success);
+  --color-success-light: var(--color-success-light);
   --color-warning: var(--color-warning);
+  --color-warning-light: var(--color-warning-light);
   --color-danger: var(--color-danger);
+  --color-danger-light: var(--color-danger-light);
   --color-border: var(--color-border);
+  --color-border-strong: var(--color-border-strong);
+  --color-disabled: var(--color-disabled);
+  --color-disabled-foreground: var(--color-disabled-foreground);
+
+  /* Fonts */
   --font-sans: "Inter", system-ui, sans-serif;
   --font-heading: "Playfair Display", Georgia, serif;
+  --font-serif: "Playfair Display", Georgia, serif;
 }
 
 /* ── Base Styles ──────────────────────────────────────────────────────────── */
@@ -72,6 +106,7 @@ html {
   font-size: 16px; /* Minimum body size for accessibility per spec */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -94,6 +129,11 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
 }
 
+/* font-serif helper (used in many components) */
+.font-serif {
+  font-family: var(--font-heading) !important;
+}
+
 /* Focus styles for accessibility (WCAG AA) */
 *:focus-visible {
   outline: 2px solid var(--color-primary);
@@ -102,5 +142,33 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Smooth transitions for interactive elements */
 button, a, input, select, textarea {
-  transition: all var(--transition-fast);
+  transition: color var(--transition-fast),
+              background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              opacity var(--transition-fast);
 }
+
+/* ── Skeleton Loading Animation ───────────────────────────────────────────── */
+@keyframes skeleton-shimmer {
+  0%   { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 25%,
+    #f0ebe4 50%,
+    var(--color-border) 75%
+  );
+  background-size: 1200px 100%;
+  animation: skeleton-shimmer 1.6s ease-in-out infinite;
+  border-radius: var(--radius-md);
+}
+
+/* ── Scrollbar (sidebar/filter panels) ───────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--color-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-text-subtle); }

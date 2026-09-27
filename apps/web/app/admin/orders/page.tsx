@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import {
@@ -285,7 +285,7 @@ export default function AdminOrdersPage() {
               onClick={() => setStatusFilter(s)}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
                 statusFilter === s
-                  ? "bg-[#8A1538] text-white shadow-xs"
+                  ? "bg-[var(--color-primary)] text-white shadow-xs"
                   : "bg-white text-stone-600 hover:bg-stone-50 border border-stone-200"
               }`}
             >
@@ -306,11 +306,11 @@ export default function AdminOrdersPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by order number or customer phone..."
-            className="flex-1 px-4 py-2 text-sm bg-white border border-stone-300 rounded-lg outline-none focus:border-[#8A1538]"
+            className="flex-1 px-4 py-2 text-sm bg-white border border-stone-300 rounded-lg outline-none focus:border-[var(--color-primary)]"
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-[#8A1538] text-white rounded-lg text-xs font-semibold"
+            className="px-4 py-2 bg-[var(--color-primary)] text-white rounded-lg text-xs font-semibold"
           >
             Search
           </button>
@@ -343,7 +343,7 @@ export default function AdminOrdersPage() {
               <tbody className="divide-y divide-stone-100 text-sm">
                 {orders.map((o) => (
                   <tr key={o.id} className="hover:bg-stone-50/60 transition-colors">
-                    <td className="py-4 px-6 font-mono font-bold text-[#8A1538]">
+                    <td className="py-4 px-6 font-mono font-bold text-[var(--color-primary)]">
                       {o.order_number}
                     </td>
                     <td className="py-4 px-6">
@@ -443,7 +443,7 @@ export default function AdminOrdersPage() {
                       className={`px-3 py-1.5 rounded-lg text-xs font-bold text-white transition-colors disabled:opacity-50 ${
                         ns === "CANCELLED"
                           ? "bg-rose-600 hover:bg-rose-700"
-                          : "bg-[#8A1538] hover:bg-rose-900"
+                          : "bg-[var(--color-primary)] hover:bg-rose-900"
                       }`}
                     >
                       Advance to: {ns.replace(/_/g, " ")}
@@ -544,7 +544,7 @@ export default function AdminOrdersPage() {
                     <select
                       value={selectedPartnerId}
                       onChange={(e) => setSelectedPartnerId(e.target.value)}
-                      className="flex-1 px-3 py-1.5 border border-stone-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-1 focus:ring-[#8A1538]"
+                      className="flex-1 px-3 py-1.5 border border-stone-300 rounded-lg text-xs bg-white focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]"
                     >
                       <option value="">-- Choose Active Rider --</option>
                       {partners.map((p) => (
@@ -557,7 +557,7 @@ export default function AdminOrdersPage() {
                       type="button"
                       disabled={!selectedPartnerId || assigningPartner}
                       onClick={handleAssignDelivery}
-                      className="px-4 py-1.5 rounded-lg bg-[#8A1538] hover:bg-[#70102D] text-white text-xs font-bold transition-colors disabled:opacity-50"
+                      className="px-4 py-1.5 rounded-lg bg-[var(--color-primary)] hover:bg-[#70102D] text-white text-xs font-bold transition-colors disabled:opacity-50"
                     >
                       {assigningPartner ? "Assigning..." : "Assign Partner"}
                     </button>
@@ -589,7 +589,7 @@ export default function AdminOrdersPage() {
             {/* Bill breakdown */}
             <div className="pt-2 border-t border-stone-200 flex justify-between items-baseline text-sm">
               <span className="text-stone-600">Total Bill Payable ({selectedOrder.payment_method})</span>
-              <span className="font-serif font-bold text-xl text-[#8A1538]">
+              <span className="font-serif font-bold text-xl text-[var(--color-primary)]">
                 ₹{selectedOrder.total_amount}
               </span>
             </div>
@@ -622,3 +622,4 @@ export default function AdminOrdersPage() {
     </div>
   );
 }
+

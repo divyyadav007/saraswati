@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { couponApi, CouponModel, CouponCreateRequest } from "@/lib/api-client";
@@ -109,7 +109,7 @@ export default function AdminCouponsPage() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="font-serif font-bold text-2xl md:text-3xl text-stone-900 flex items-center gap-2.5">
-            <span className="p-2 rounded-xl bg-amber-100 text-[#8A1538] text-xl">🏷️</span>
+            <span className="p-2 rounded-xl bg-amber-100 text-[var(--color-primary)] text-xl">🏷️</span>
             Discounts & Coupons
           </h1>
           <p className="text-xs md:text-sm text-stone-500 mt-1">
@@ -119,7 +119,7 @@ export default function AdminCouponsPage() {
 
         <button
           onClick={() => setShowCreateModal(true)}
-          className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#8A1538] hover:bg-[#70102D] text-white text-xs font-semibold rounded-xl transition-colors shadow-xs"
+          className="inline-flex items-center gap-2 px-4 py-2.5 bg-[var(--color-primary)] hover:bg-[#70102D] text-white text-xs font-semibold rounded-xl transition-colors shadow-xs"
         >
           <Plus className="w-4 h-4" />
           Create New Coupon
@@ -146,7 +146,7 @@ export default function AdminCouponsPage() {
             </p>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="mt-2 px-4 py-2 bg-[#8A1538] text-white rounded-xl text-xs font-semibold hover:bg-[#70102D]"
+              className="mt-2 px-4 py-2 bg-[var(--color-primary)] text-white rounded-xl text-xs font-semibold hover:bg-[#70102D]"
             >
               Add Coupon
             </button>
@@ -170,7 +170,7 @@ export default function AdminCouponsPage() {
                 {coupons.map((c) => (
                   <tr key={c.id} className="hover:bg-stone-50/50 transition-colors">
                     <td className="py-3 px-4 font-mono font-bold text-stone-900">
-                      <span className="px-2 py-0.5 rounded bg-amber-50 text-[#8A1538] border border-amber-200">
+                      <span className="px-2 py-0.5 rounded bg-amber-50 text-[var(--color-primary)] border border-amber-200">
                         {c.code}
                       </span>
                     </td>
@@ -222,7 +222,7 @@ export default function AdminCouponsPage() {
           <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-stone-200 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-stone-100">
               <h3 className="font-serif font-bold text-base text-stone-900 flex items-center gap-2">
-                <Tag className="w-4 h-4 text-[#8A1538]" />
+                <Tag className="w-4 h-4 text-[var(--color-primary)]" />
                 Create New Coupon
               </h3>
               <button
@@ -249,7 +249,7 @@ export default function AdminCouponsPage() {
                     value={newCoupon.code}
                     onChange={(e) => setNewCoupon({ ...newCoupon, code: e.target.value.toUpperCase() })}
                     placeholder="e.g. DIWALI20"
-                    className="w-full px-3 py-2 border border-stone-200 rounded-xl font-mono uppercase tracking-wider focus:border-[#8A1538] outline-none"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-xl font-mono uppercase tracking-wider focus:border-[var(--color-primary)] outline-none"
                   />
                 </div>
 
@@ -263,7 +263,7 @@ export default function AdminCouponsPage() {
                         type: e.target.value as "PERCENTAGE" | "FLAT",
                       })
                     }
-                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[#8A1538] outline-none"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[var(--color-primary)] outline-none"
                   >
                     <option value="PERCENTAGE">PERCENTAGE (%)</option>
                     <option value="FLAT">FLAT AMOUNT (₹)</option>
@@ -284,7 +284,7 @@ export default function AdminCouponsPage() {
                     required
                     value={newCoupon.value}
                     onChange={(e) => setNewCoupon({ ...newCoupon, value: parseFloat(e.target.value) || 0 })}
-                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[#8A1538] outline-none"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[var(--color-primary)] outline-none"
                   />
                 </div>
 
@@ -298,7 +298,7 @@ export default function AdminCouponsPage() {
                     onChange={(e) =>
                       setNewCoupon({ ...newCoupon, min_order_value: parseFloat(e.target.value) || 0 })
                     }
-                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[#8A1538] outline-none"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[var(--color-primary)] outline-none"
                   />
                 </div>
               </div>
@@ -319,7 +319,7 @@ export default function AdminCouponsPage() {
                       })
                     }
                     placeholder="Leave empty for uncapped"
-                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[#8A1538] outline-none"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[var(--color-primary)] outline-none"
                   />
                 </div>
               )}
@@ -334,7 +334,7 @@ export default function AdminCouponsPage() {
                     onChange={(e) =>
                       setNewCoupon({ ...newCoupon, usage_limit_per_user: parseInt(e.target.value) || 1 })
                     }
-                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[#8A1538] outline-none"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[var(--color-primary)] outline-none"
                   />
                 </div>
 
@@ -351,7 +351,7 @@ export default function AdminCouponsPage() {
                       })
                     }
                     placeholder="Unlimited if empty"
-                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[#8A1538] outline-none"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[var(--color-primary)] outline-none"
                   />
                 </div>
               </div>
@@ -366,7 +366,7 @@ export default function AdminCouponsPage() {
                     onChange={(e) =>
                       setNewCoupon({ ...newCoupon, valid_from: `${e.target.value}T00:00:00Z` })
                     }
-                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[#8A1538] outline-none"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[var(--color-primary)] outline-none"
                   />
                 </div>
 
@@ -379,7 +379,7 @@ export default function AdminCouponsPage() {
                     onChange={(e) =>
                       setNewCoupon({ ...newCoupon, valid_until: `${e.target.value}T23:59:59Z` })
                     }
-                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[#8A1538] outline-none"
+                    className="w-full px-3 py-2 border border-stone-200 rounded-xl focus:border-[var(--color-primary)] outline-none"
                   />
                 </div>
               </div>
@@ -395,7 +395,7 @@ export default function AdminCouponsPage() {
                 <button
                   type="submit"
                   disabled={creating}
-                  className="px-5 py-2 bg-[#8A1538] hover:bg-[#70102D] disabled:opacity-50 text-white font-semibold rounded-xl shadow-xs transition-colors"
+                  className="px-5 py-2 bg-[var(--color-primary)] hover:bg-[#70102D] disabled:opacity-50 text-white font-semibold rounded-xl shadow-xs transition-colors"
                 >
                   {creating ? "Saving..." : "Save Coupon"}
                 </button>
@@ -407,3 +407,4 @@ export default function AdminCouponsPage() {
     </div>
   );
 }
+

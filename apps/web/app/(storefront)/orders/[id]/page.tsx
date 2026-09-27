@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { use, useEffect, useState } from "react";
 import Link from "next/link";
@@ -106,7 +106,7 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#FBF7F2] py-20 text-center text-[#6B6258]">
+      <div className="min-h-screen bg-[var(--color-background)] py-20 text-center text-[var(--color-text-muted)]">
         Loading order details...
       </div>
     );
@@ -114,16 +114,16 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
 
   if (!order) {
     return (
-      <div className="min-h-screen bg-[#FBF7F2] py-20 text-center">
-        <h1 className="font-serif text-2xl font-bold text-[#1F1B16] mb-2">
+      <div className="min-h-screen bg-[var(--color-background)] py-20 text-center">
+        <h1 className="font-serif text-2xl font-bold text-[var(--color-text-primary)] mb-2">
           Order Not Found
         </h1>
-        <p className="text-sm text-[#6B6258] mb-6">
+        <p className="text-sm text-[var(--color-text-muted)] mb-6">
           We could not locate details for this order.
         </p>
         <Link
           href="/"
-          className="px-6 py-2.5 rounded-full bg-[#8A1538] text-white text-sm font-semibold"
+          className="px-6 py-2.5 rounded-full bg-[var(--color-primary)] text-white text-sm font-semibold"
         >
           Return to Storefront
         </Link>
@@ -135,10 +135,10 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
   const isCancelled = order.status === "CANCELLED";
 
   return (
-    <div className="min-h-screen bg-[#FBF7F2] py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[var(--color-background)] py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-8">
         {/* Success Header Card */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#E8E0D8] shadow-xs text-center">
+        <div className="bg-[var(--color-surface)] rounded-2xl p-6 sm:p-8 border border-[var(--color-border)] shadow-xs text-center">
           <div
             className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
               order.status === "DELIVERED"
@@ -151,22 +151,22 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
             {order.status === "DELIVERED" ? (
               <CheckCircle2 className="w-8 h-8" />
             ) : order.status === "OUT_FOR_DELIVERY" ? (
-              <Truck className="w-8 h-8 text-[#8A1538]" />
+              <Truck className="w-8 h-8 text-[var(--color-primary)]" />
             ) : (
-              <Package className="w-8 h-8 text-[#8A1538]" />
+              <Package className="w-8 h-8 text-[var(--color-primary)]" />
             )}
           </div>
-          <span className="text-xs uppercase font-bold tracking-widest text-[#C9A227]">
+          <span className="text-xs uppercase font-bold tracking-widest text-[var(--color-accent-gold)]">
             {order.status === "DELIVERED"
               ? "Completed"
               : isCancelled
               ? "Cancelled"
               : "Status: " + order.status.replace(/_/g, " ")}
           </span>
-          <h1 className="font-serif text-3xl font-bold text-[#1F1B16] mt-1 mb-2">
+          <h1 className="font-serif text-3xl font-bold text-[var(--color-text-primary)] mt-1 mb-2">
             Order #{order.order_number}
           </h1>
-          <p className="text-sm text-[#6B6258] max-w-md mx-auto">
+          <p className="text-sm text-[var(--color-text-muted)] max-w-md mx-auto">
             {order.status === "DELIVERED"
               ? "Delivered successfully! We hope you enjoy the authentic taste of Barabanki sweets."
               : order.status === "OUT_FOR_DELIVERY"
@@ -178,8 +178,8 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
         </div>
 
         {/* Order Status Timeline */}
-        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-[#E8E0D8] shadow-xs space-y-6">
-          <h2 className="font-serif text-lg font-bold text-[#1F1B16] border-b border-[#E8E0D8] pb-3">
+        <div className="bg-[var(--color-surface)] rounded-2xl p-6 sm:p-8 border border-[var(--color-border)] shadow-xs space-y-6">
+          <h2 className="font-serif text-lg font-bold text-[var(--color-text-primary)] border-b border-[var(--color-border)] pb-3">
             Live Order Status
           </h2>
 
@@ -189,7 +189,7 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
               {order.cancel_reason || "Cancelled by store"}
             </div>
           ) : (
-            <div className="relative pl-6 sm:pl-8 space-y-8 before:absolute before:left-3 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[#E8E0D8]">
+            <div className="relative pl-6 sm:pl-8 space-y-8 before:absolute before:left-3 sm:before:left-4 before:top-2 before:bottom-2 before:w-0.5 before:bg-[var(--color-border)]">
               {ORDER_STEPS.map((step, idx) => {
                 const isCompleted = currentStepIdx >= idx;
                 const isCurrent = currentStepIdx === idx;
@@ -199,8 +199,8 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
                     <div
                       className={`absolute -left-6 sm:-left-8 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                         isCompleted
-                          ? "bg-[#8A1538] text-white shadow-xs"
-                          : "bg-white border-2 border-stone-300 text-stone-400"
+                          ? "bg-[var(--color-primary)] text-white shadow-xs"
+                          : "bg-[var(--color-surface)] border-2 border-stone-300 text-stone-400"
                       }`}
                     >
                       {isCompleted ? "✓" : idx + 1}
@@ -209,20 +209,20 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
                       <div
                         className={`font-serif font-bold text-sm ${
                           isCurrent
-                            ? "text-[#8A1538]"
+                            ? "text-[var(--color-primary)]"
                             : isCompleted
-                            ? "text-[#1F1B16]"
+                            ? "text-[var(--color-text-primary)]"
                             : "text-stone-400"
                         }`}
                       >
                         {step.label}
                         {isCurrent && (
-                          <span className="ml-2 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#8A1538]/10 text-[#8A1538]">
+                          <span className="ml-2 text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-[var(--color-primary)]/10 text-[var(--color-primary)]">
                             In Progress
                           </span>
                         )}
                       </div>
-                      <div className="text-xs text-[#6B6258] mt-0.5">
+                      <div className="text-xs text-[var(--color-text-muted)] mt-0.5">
                         {step.desc}
                       </div>
                     </div>
@@ -235,10 +235,10 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
 
         {/* Assigned Delivery Rider Card (when assigned) */}
         {order.delivery_assignment && (
-          <div className="bg-white rounded-2xl p-6 border-2 border-emerald-200 shadow-xs space-y-4">
+          <div className="bg-[var(--color-surface)] rounded-2xl p-6 border-2 border-emerald-200 shadow-xs space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="font-serif font-bold text-base text-[#1F1B16] flex items-center gap-2">
-                <Truck className="w-5 h-5 text-[#8A1538]" />
+              <h3 className="font-serif font-bold text-base text-[var(--color-text-primary)] flex items-center gap-2">
+                <Truck className="w-5 h-5 text-[var(--color-primary)]" />
                 Assigned Delivery Rider
               </h3>
               <span className="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">
@@ -269,7 +269,7 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
                 <div>
                   <a
                     href={`tel:${order.delivery_assignment.partner_phone}`}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#8A1538] text-white text-xs font-bold hover:bg-[#70102D] shadow-xs transition-colors"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[var(--color-primary)] text-white text-xs font-bold hover:bg-[#70102D] shadow-xs transition-colors"
                   >
                     <Phone className="w-4 h-4" />
                     Call Rider ({order.delivery_assignment.partner_phone})
@@ -283,31 +283,31 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
         {/* Order Details Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Delivery & Contact info */}
-          <div className="bg-white rounded-2xl p-6 border border-[#E8E0D8] shadow-xs space-y-4">
-            <h3 className="font-serif font-bold text-base text-[#1F1B16] flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-[#8A1538]" />
+          <div className="bg-[var(--color-surface)] rounded-2xl p-6 border border-[var(--color-border)] shadow-xs space-y-4">
+            <h3 className="font-serif font-bold text-base text-[var(--color-text-primary)] flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-[var(--color-primary)]" />
               Delivery Destination
             </h3>
-            <div className="text-xs text-[#6B6258] space-y-1">
-              <div className="font-bold text-sm text-[#1F1B16]">
+            <div className="text-xs text-[var(--color-text-muted)] space-y-1">
+              <div className="font-bold text-sm text-[var(--color-text-primary)]">
                 {order.address_snapshot.recipient_name}
               </div>
               <div>{order.address_snapshot.line1}</div>
               <div>
                 {order.address_snapshot.city} — {order.address_snapshot.pincode}
               </div>
-              <div className="font-mono text-[#1F1B16] pt-1">
+              <div className="font-mono text-[var(--color-text-primary)] pt-1">
                 Phone: {order.address_snapshot.phone}
               </div>
             </div>
 
             {order.delivery_slot && (
-              <div className="pt-3 border-t border-[#E8E0D8]">
-                <div className="text-xs font-semibold text-[#1F1B16] flex items-center gap-1.5 mb-1">
-                  <Clock className="w-3.5 h-3.5 text-[#8A1538]" />
+              <div className="pt-3 border-t border-[var(--color-border)]">
+                <div className="text-xs font-semibold text-[var(--color-text-primary)] flex items-center gap-1.5 mb-1">
+                  <Clock className="w-3.5 h-3.5 text-[var(--color-primary)]" />
                   Delivery Time Slot
                 </div>
-                <div className="text-xs text-[#6B6258]">
+                <div className="text-xs text-[var(--color-text-muted)]">
                   {order.delivery_slot.label}
                 </div>
               </div>
@@ -315,20 +315,20 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
           </div>
 
           {/* Items & Payment summary */}
-          <div className="bg-white rounded-2xl p-6 border border-[#E8E0D8] shadow-xs space-y-4">
-            <h3 className="font-serif font-bold text-base text-[#1F1B16] flex items-center gap-2">
-              <Package className="w-4 h-4 text-[#8A1538]" />
+          <div className="bg-[var(--color-surface)] rounded-2xl p-6 border border-[var(--color-border)] shadow-xs space-y-4">
+            <h3 className="font-serif font-bold text-base text-[var(--color-text-primary)] flex items-center gap-2">
+              <Package className="w-4 h-4 text-[var(--color-primary)]" />
               Items Ordered
             </h3>
 
-            <div className="divide-y divide-[#E8E0D8]/60 text-xs">
+            <div className="divide-y divide-[var(--color-border)]/60 text-xs">
               {order.items.map((i) => (
                 <div key={i.id} className="py-2 flex items-center justify-between gap-2">
                   <div>
-                    <span className="font-bold text-[#1F1B16]">
+                    <span className="font-bold text-[var(--color-text-primary)]">
                       {i.product_name_snapshot}
                     </span>
-                    <span className="text-[#6B6258] block">
+                    <span className="text-[var(--color-text-muted)] block">
                       {i.variant_label_snapshot} × {i.quantity}
                     </span>
                   </div>
@@ -345,13 +345,13 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
                           setComment("");
                           setReviewMessage(null);
                         }}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-[#8A1538] text-[11px] font-bold border border-amber-200 transition-colors"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-[var(--color-primary)] text-[11px] font-bold border border-amber-200 transition-colors"
                       >
                         <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                         <span>Review</span>
                       </button>
                     )}
-                    <span className="font-semibold text-[#1F1B16]">
+                    <span className="font-semibold text-[var(--color-text-primary)]">
                       ₹{i.line_total}
                     </span>
                   </div>
@@ -359,7 +359,7 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
               ))}
             </div>
 
-            <div className="pt-3 border-t border-[#E8E0D8] space-y-1.5 text-xs text-[#6B6258]">
+            <div className="pt-3 border-t border-[var(--color-border)] space-y-1.5 text-xs text-[var(--color-text-muted)]">
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span>₹{order.subtotal}</span>
@@ -368,9 +368,9 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
                 <span>Delivery Charge</span>
                 <span>{order.delivery_charge === 0 ? "FREE" : `₹${order.delivery_charge}`}</span>
               </div>
-              <div className="flex justify-between font-bold text-sm text-[#1F1B16] pt-1">
+              <div className="flex justify-between font-bold text-sm text-[var(--color-text-primary)] pt-1">
                 <span>Total Amount ({order.payment_method})</span>
-                <span className="text-[#8A1538]">₹{order.total_amount}</span>
+                <span className="text-[var(--color-primary)]">₹{order.total_amount}</span>
               </div>
             </div>
           </div>
@@ -380,14 +380,14 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4">
           <Link
             href="/products"
-            className="text-xs font-semibold text-[#8A1538] hover:underline"
+            className="text-xs font-semibold text-[var(--color-primary)] hover:underline"
           >
             ← Continue Browsing Sweets
           </Link>
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="px-6 py-2.5 rounded-full bg-[#8A1538] text-white text-xs font-semibold hover:bg-[#70102D] transition-colors"
+              className="px-6 py-2.5 rounded-full bg-[var(--color-primary)] text-white text-xs font-semibold hover:bg-[#70102D] transition-colors"
             >
               Back to Home
             </Link>
@@ -398,13 +398,13 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
       {/* Review Submission Modal */}
       {reviewModalItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#E8E0D8]">
-            <div className="flex items-center justify-between pb-3 border-b border-[#E8E0D8] mb-4">
+          <div className="bg-[var(--color-surface)] rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[var(--color-border)]">
+            <div className="flex items-center justify-between pb-3 border-b border-[var(--color-border)] mb-4">
               <div>
-                <span className="text-[11px] font-bold uppercase tracking-wider text-[#8A1538]">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--color-primary)]">
                   Verified Purchase Review
                 </span>
-                <h3 className="font-serif font-bold text-base text-[#1F1B16]">
+                <h3 className="font-serif font-bold text-base text-[var(--color-text-primary)]">
                   {reviewModalItem.name}
                 </h3>
               </div>
@@ -430,7 +430,7 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
                 <button
                   type="button"
                   onClick={() => setReviewModalItem(null)}
-                  className="px-5 py-2 bg-[#8A1538] text-white text-xs font-semibold rounded-xl hover:bg-[#70102D]"
+                  className="px-5 py-2 bg-[var(--color-primary)] text-white text-xs font-semibold rounded-xl hover:bg-[#70102D]"
                 >
                   Close
                 </button>
@@ -471,7 +471,7 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
                 className="space-y-4 text-xs"
               >
                 <div>
-                  <label className="block font-semibold text-[#1F1B16] mb-2">
+                  <label className="block font-semibold text-[var(--color-text-primary)] mb-2">
                     Your Rating *
                   </label>
                   <div className="flex items-center gap-1.5">
@@ -498,7 +498,7 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-[#1F1B16] mb-1">
+                  <label className="block font-semibold text-[var(--color-text-primary)] mb-1">
                     Your Experience (Optional)
                   </label>
                   <textarea
@@ -507,11 +507,11 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="Tell us about the taste, texture, sweetness, or packaging..."
-                    className="w-full px-3 py-2 border border-[#E8E0D8] rounded-xl outline-none focus:border-[#8A1538]"
+                    className="w-full px-3 py-2 border border-[var(--color-border)] rounded-xl outline-none focus:border-[var(--color-primary)]"
                   />
                 </div>
 
-                <div className="pt-2 flex justify-end gap-2 border-t border-[#E8E0D8]">
+                <div className="pt-2 flex justify-end gap-2 border-t border-[var(--color-border)]">
                   <button
                     type="button"
                     onClick={() => setReviewModalItem(null)}
@@ -522,7 +522,7 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
                   <button
                     type="submit"
                     disabled={submittingReview}
-                    className="px-5 py-2 bg-[#8A1538] hover:bg-[#70102D] disabled:opacity-50 text-white font-semibold rounded-xl transition-colors shadow-xs"
+                    className="px-5 py-2 bg-[var(--color-primary)] hover:bg-[#70102D] disabled:opacity-50 text-white font-semibold rounded-xl transition-colors shadow-xs"
                   >
                     {submittingReview ? "Submitting..." : "Submit Review"}
                   </button>
@@ -535,3 +535,4 @@ export default function OrderTrackingPage({ params }: OrderTrackingProps) {
     </div>
   );
 }
+

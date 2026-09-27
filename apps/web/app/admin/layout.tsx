@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -46,7 +46,7 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen bg-stone-100 flex flex-col md:flex-row font-sans text-stone-900">
       {/* Mobile Top Header */}
-      <header className="md:hidden bg-[#8A1538] text-white px-4 py-3 flex items-center justify-between shadow-md">
+      <header className="md:hidden bg-[var(--color-primary)] text-white px-4 py-3 flex items-center justify-between shadow-md">
         <div className="flex items-center space-x-2">
           <span className="text-xl">🪔</span>
           <span className="font-serif font-bold text-lg">Saraswati Admin</span>
@@ -68,14 +68,14 @@ export default function AdminLayout({
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#8A1538] text-white flex flex-col transition-transform transform md:translate-x-0 md:static ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-[var(--color-primary)] text-white flex flex-col transition-transform transform md:translate-x-0 md:static ${
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Brand Header */}
         <div className="p-6 border-b border-rose-900/40">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-full bg-[#C9A227] text-maroon-900 flex items-center justify-center font-bold text-xl shadow-inner">
+            <div className="w-10 h-10 rounded-full bg-[var(--color-accent-gold)] text-maroon-900 flex items-center justify-center font-bold text-xl shadow-inner">
               S
             </div>
             <div>
@@ -98,7 +98,7 @@ export default function AdminLayout({
                 onClick={() => setSidebarOpen(false)}
                 className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-sm font-medium transition-all ${
                   isActive
-                    ? "bg-[#C9A227] text-stone-900 shadow-md font-semibold"
+                    ? "bg-[var(--color-accent-gold)] text-stone-900 shadow-md font-semibold"
                     : "text-rose-100/90 hover:bg-rose-900/50 hover:text-white"
                 } ${item.badge ? "opacity-60 cursor-not-allowed" : ""}`}
               >
@@ -164,3 +164,4 @@ export default function AdminLayout({
     </div>
   );
 }
+

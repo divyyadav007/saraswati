@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import {
@@ -110,7 +110,7 @@ export default function AdminBulkEnquiriesPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-stone-200 shadow-xs">
         <div>
           <h1 className="font-serif text-2xl md:text-3xl font-bold text-stone-900 flex items-center gap-2">
-            <ClipboardList className="w-7 h-7 text-[#8A1538]" />
+            <ClipboardList className="w-7 h-7 text-[var(--color-primary)]" />
             Bulk Orders & Corporate Leads CRM
           </h1>
           <p className="text-stone-500 text-sm mt-1">
@@ -134,7 +134,7 @@ export default function AdminBulkEnquiriesPage() {
             onClick={() => setSelectedStatus(opt.value)}
             className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
               selectedStatus === opt.value
-                ? "bg-[#8A1538] text-white shadow-sm"
+                ? "bg-[var(--color-primary)] text-white shadow-sm"
                 : "bg-white text-stone-600 hover:bg-stone-50 border border-stone-200"
             }`}
           >
@@ -168,7 +168,7 @@ export default function AdminBulkEnquiriesPage() {
                     <h3 className="font-serif font-bold text-xl text-stone-900">
                       {enquiry.name}
                     </h3>
-                    <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-rose-50 text-[#8A1538] border border-rose-200">
+                    <span className="text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-rose-50 text-[var(--color-primary)] border border-rose-200">
                       {enquiry.enquiry_type}
                     </span>
                     <span className="text-xs text-stone-400">
@@ -180,7 +180,7 @@ export default function AdminBulkEnquiriesPage() {
                   <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-stone-600">
                     <a
                       href={`tel:${enquiry.phone}`}
-                      className="inline-flex items-center gap-1.5 text-[#8A1538] hover:underline bg-[#8A1538]/5 px-2.5 py-1 rounded-md"
+                      className="inline-flex items-center gap-1.5 text-[var(--color-primary)] hover:underline bg-[var(--color-primary)]/5 px-2.5 py-1 rounded-md"
                     >
                       <Phone className="w-3.5 h-3.5" />
                       {enquiry.phone}
@@ -235,7 +235,7 @@ export default function AdminBulkEnquiriesPage() {
                     <select
                       value={enquiry.status}
                       onChange={(e) => handleStatusChange(enquiry.id, e.target.value)}
-                      className="w-full bg-stone-50 border border-stone-300 rounded-xl p-2.5 text-xs font-semibold text-stone-900 focus:bg-white focus:border-[#8A1538] outline-none"
+                      className="w-full bg-stone-50 border border-stone-300 rounded-xl p-2.5 text-xs font-semibold text-stone-900 focus:bg-white focus:border-[var(--color-primary)] outline-none"
                     >
                       <option value="NEW">🔵 New Lead</option>
                       <option value="CONTACTED">🟡 Contacted</option>
@@ -254,7 +254,7 @@ export default function AdminBulkEnquiriesPage() {
                       <button
                         onClick={() => handleSaveNotes(enquiry.id)}
                         disabled={savingNoteId === enquiry.id}
-                        className="inline-flex items-center gap-1 text-[11px] font-bold text-[#8A1538] hover:underline"
+                        className="inline-flex items-center gap-1 text-[11px] font-bold text-[var(--color-primary)] hover:underline"
                       >
                         <Save className="w-3 h-3" />
                         {savingNoteId === enquiry.id ? "Saving..." : "Save Note"}
@@ -267,7 +267,7 @@ export default function AdminBulkEnquiriesPage() {
                       onChange={(e) =>
                         setEditingNotes({ ...editingNotes, [enquiry.id]: e.target.value })
                       }
-                      className="w-full bg-stone-50 border border-stone-200 rounded-xl p-2 text-xs text-stone-800 focus:bg-white focus:border-[#8A1538] outline-none"
+                      className="w-full bg-stone-50 border border-stone-200 rounded-xl p-2 text-xs text-stone-800 focus:bg-white focus:border-[var(--color-primary)] outline-none"
                     />
                   </div>
 
@@ -289,3 +289,4 @@ export default function AdminBulkEnquiriesPage() {
     </div>
   );
 }
+

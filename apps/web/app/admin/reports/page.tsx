@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { adminAnalyticsApi, SalesReportModel } from "@/lib/api-client";
@@ -107,7 +107,7 @@ export default function AdminReportsPage() {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+              className="px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             />
           </div>
           <div>
@@ -116,7 +116,7 @@ export default function AdminReportsPage() {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#8A1538]"
+              className="px-3 py-2 border border-stone-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             />
           </div>
           <div>
@@ -126,7 +126,7 @@ export default function AdminReportsPage() {
                 type="button"
                 onClick={() => setGroupBy("category")}
                 className={`px-4 py-2 font-medium ${
-                  groupBy === "category" ? "bg-[#8A1538] text-white" : "bg-white text-stone-700 hover:bg-stone-50"
+                  groupBy === "category" ? "bg-[var(--color-primary)] text-white" : "bg-white text-stone-700 hover:bg-stone-50"
                 }`}
               >
                 Category
@@ -135,7 +135,7 @@ export default function AdminReportsPage() {
                 type="button"
                 onClick={() => setGroupBy("product")}
                 className={`px-4 py-2 font-medium ${
-                  groupBy === "product" ? "bg-[#8A1538] text-white" : "bg-white text-stone-700 hover:bg-stone-50"
+                  groupBy === "product" ? "bg-[var(--color-primary)] text-white" : "bg-white text-stone-700 hover:bg-stone-50"
                 }`}
               >
                 Product
@@ -247,3 +247,4 @@ export default function AdminReportsPage() {
     </div>
   );
 }
+
