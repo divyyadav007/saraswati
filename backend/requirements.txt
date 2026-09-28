@@ -13,8 +13,6 @@ alembic==1.15.2
 # Supabase (Auth JWT verification)
 supabase==2.15.2
 PyJWT==2.10.1
-python-jose[cryptography]==3.5.0
-cryptography==44.0.3
 
 # HTTP / integrations
 httpx==0.28.1

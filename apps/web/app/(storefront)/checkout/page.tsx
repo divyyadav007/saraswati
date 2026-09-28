@@ -265,7 +265,7 @@ export default function CheckoutPage() {
 
   const handleCreateAddress = async (e: React.FormEvent) => {
     e.preventDefault();
-    const token = getAuthToken() as string;
+    const token = (await supabase.auth.getSession()).data.session?.access_token || "";
     try {
       const created = await addressApi.createAddress(newAddress, token);
       setAddresses((prev) => [created, ...prev]);
@@ -312,7 +312,7 @@ export default function CheckoutPage() {
 
     setSubmitting(true);
     setError(null);
-    const token = getAuthToken() as string;
+    const token = (await supabase.auth.getSession()).data.session?.access_token || "";
     const idempotencyKey = `chk-${Date.now()}-${Math.random().toString(36).substring(7)}`;
 
     try {
@@ -752,7 +752,7 @@ export default function CheckoutPage() {
                           if (!couponInput.trim()) return;
                           setValidatingCoupon(true);
                           setCouponError(null);
-                          const token = getAuthToken() as string;
+                          const token = (await supabase.auth.getSession()).data.session?.access_token || "";
                           try {
                             const res = await couponApi.validate(
                               { code: couponInput.trim().toUpperCase(), cart_total: subtotal },
@@ -784,7 +784,7 @@ export default function CheckoutPage() {
                         if (!couponInput.trim()) return;
                         setValidatingCoupon(true);
                         setCouponError(null);
-                        const token = getAuthToken() as string;
+                        const token = (await supabase.auth.getSession()).data.session?.access_token || "";
                         try {
                           const res = await couponApi.validate(
                             { code: couponInput.trim().toUpperCase(), cart_total: subtotal },

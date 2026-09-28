@@ -110,6 +110,18 @@ export default function CustomerProfilePage() {
     }
   }
 
+  async function handleLogout() {
+    try {
+      setLoading(true);
+      await supabase.auth.signOut();
+      localStorage.removeItem("auth_token");
+      router.replace("/");
+    } catch (err) {
+      console.error("Logout failed:", err);
+      setLoading(false);
+    }
+  }
+
   if (loading) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-12 space-y-6 animate-pulse">
@@ -129,12 +141,20 @@ export default function CustomerProfilePage() {
             Manage your personal profile, notification alerts, and order history
           </p>
         </div>
-        <Link
-          href="/orders"
-          className="inline-flex items-center px-4 py-2 bg-stone-900 hover:bg-black text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
-        >
-          View My Orders →
-        </Link>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <Link
+            href="/orders"
+            className="inline-flex items-center justify-center px-4 py-2 bg-stone-900 hover:bg-black text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
+          >
+            View My Orders →
+          </Link>
+          <button
+            onClick={handleLogout}
+            className="inline-flex items-center justify-center px-4 py-2 bg-white border border-stone-200 hover:bg-stone-50 text-red-600 text-sm font-medium rounded-lg shadow-sm transition-colors"
+          >
+            Log Out
+          </button>
+        </div>
       </div>
 
       {feedback && (

@@ -56,31 +56,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     return localStorage.getItem("auth_token") || null;
   };
 
-  // Load guest cart or server cart on mount
-  useEffect(() => {
-    const token = getAuthToken();
-    if (token) {
-      refreshCart();
-    } else {
-      try {
-        const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (stored) {
-          setGuestItems(JSON.parse(stored));
-        }
-      } catch {
-        // ignore
-      }
-    }
-  }, []);
-
-  // Save guest items to localStorage
-  useEffect(() => {
-    const token = getAuthToken();
-    if (!token && typeof window !== "undefined") {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(guestItems));
-    }
-  }, [guestItems]);
-
   const refreshCart = async () => {
     const token = getAuthToken();
     if (!token) return;
@@ -95,6 +70,33 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       setIsLoading(false);
     }
   };
+
+  // Load guest cart or server cart on mount
+  useEffect(() => {
+    const token = getAuthToken();
+    if (token) {
+      refreshCart();
+    } else {
+      try {
+        const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (stored) {
+          // Add a small delay to avoid synchronous state update warning during mount
+          setTimeout(() => setGuestItems(JSON.parse(stored)), 0);
+        }
+      } catch {
+        // ignore
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Save guest items to localStorage
+  useEffect(() => {
+    const token = getAuthToken();
+    if (!token && typeof window !== "undefined") {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(guestItems));
+    }
+  }, [guestItems]);
 
   const mergeGuestCart = async (token: string) => {
     if (guestItems.length === 0) return;
@@ -143,8 +145,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           token
         );
         setCart(updated);
-      } catch (err: any) {
-        alert(err?.message || "Failed to add to cart");
+      } catch (err: unknown) {
+        alert(err instanceof Error ? err.message : "Failed to add to cart");
       } finally {
         setIsLoading(false);
       }
@@ -187,8 +189,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setIsLoading(true);
         const updated = await cartApi.updateQuantity(id, quantity, token);
         setCart(updated);
-      } catch (err: any) {
-        alert(err?.message || "Failed to update item");
+      } catch (err: unknown) {
+        alert(err instanceof Error ? err.message : "Failed to update item");
       } finally {
         setIsLoading(false);
       }
@@ -213,8 +215,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setIsLoading(true);
         const updated = await cartApi.removeItem(id, token);
         setCart(updated);
-      } catch (err: any) {
-        alert(err?.message || "Failed to remove item");
+      } catch (err: unknown) {
+        alert(err instanceof Error ? err.message : "Failed to remove item");
       } finally {
         setIsLoading(false);
       }
